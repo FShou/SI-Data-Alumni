@@ -8,25 +8,25 @@ use App\Models\Alumni;
 use App\Models\Angkatan;
 use App\Models\Jurusan;
 use App\Models\Prodi;
-use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\SelectColumn;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Select;
 
 class AlumniResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
     protected static ?string $model = Alumni::class;
     protected static ?string $modelLabel = 'Alumnus';
@@ -38,10 +38,12 @@ class AlumniResource extends Resource
                 ->required()
                 ->autofocus()
                 ->length(10)
+                ->disableAutocomplete()
                 ->regex('/^[A-Z][0-9]{9}$/')
                 ->reactive()
                 ->afterStateUpdated(function (callable $set, $state) {
                     // Auofill Prodi & Jurusan
+                    $set('nim', strtoupper($state));
                     $jurusan = Jurusan::where('kode_jurusan', 'like', ucfirst(substr($state, 0, 1)))->first();
                     if ($jurusan) {
                         $jurusan->toArray();
@@ -53,11 +55,11 @@ class AlumniResource extends Resource
                         $prodi->toArray();
                         $set('id_prodi', $prodi['id']);
                     }
-
-                    $set('nim', ucfirst($state));
                 }),
 
             TextInput::make('nama_alumni')
+                ->label('Nama Alumni')
+                ->disableAutocomplete()
                 ->required()
                 ->maxLength(50),
             Select::make('gender')
@@ -96,6 +98,7 @@ class AlumniResource extends Resource
                 ]),
             TextInput::make('email_alumni')
                 ->email()
+                ->disableAutocomplete()
                 ->label('Email')
                 ->maxLength(50),
 
@@ -103,12 +106,13 @@ class AlumniResource extends Resource
                 ->label('Angkatan')
                 ->options(Angkatan::all()->pluck('tahun_angkatan', 'id'))
                 ->searchable(),
-            FileUpload::make('foto')
-                ->image()
-                ->maxSize(2048)
-                ->panelAspectRatio('2:1')
-                ->imageResizeMode('cover')
-                ->imageCropAspectRatio('3:4'),
+            // TODO: Setup File Storage
+            // FileUpload::make('foto')
+            //     ->image()
+            //     ->maxSize(2048)
+            //     ->panelAspectRatio('2:1')
+            //     ->imageResizeMode('cover')
+            //     ->imageCropAspectRatio('3:4'),
         ]);
     }
 
@@ -127,17 +131,38 @@ class AlumniResource extends Resource
                     'L' => 'Laki-laki',
                     'K' => 'Perempuan',
                 ]),
+                TextColumn::make('pekerjaan')->enum([
+                        'Negri' => 'Negri',
+                        'Swasta' => 'Swasta',
+                        'Tidak Bekerja' => 'Tidak Bekerja',
+                ]),
+
+                TextColumn::make('prodi.nama_prodi')->label('Prodi'),
+                TextColumn::make('jurusan.nama_jurusan')->label('Jurusan'),
+                TextColumn::make('angkatan.tahun_angkatan')->label('Angkatan'),
+
                 TextColumn::make('email_alumni')
                     ->label('Email')
                     ->placeholder('-'),
-
-                // @TODO: menampilkan nama_prodi & nama_jurusan & tahun_angkatan
-                // TextColumn::make('id_prodi'),
-
-                // Columns\TextColumn::make()
             ])
             ->filters([
                 //
+                SelectFilter::make('jurusan')
+                    ->multiple()
+                    ->relationship('jurusan', 'nama_jurusan'),
+                SelectFilter::make('prodi')
+                    ->multiple()
+                    ->relationship('prodi', 'nama_prodi'),
+                SelectFilter::make('angkatan')
+                    ->multiple()
+                    ->relationship('angkatan', 'tahun_angkatan'),
+                SelectFilter::make('pekerjaan')
+                    ->searchable()
+                    ->options([
+                        'Negri' => 'Negri',
+                        'Swasta' => 'Swasta',
+                        'Tidak Bekerja' => 'Tidak Bekerja',
+                    ]),
             ])
             ->actions([Tables\Actions\EditAction::make()])
             ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);

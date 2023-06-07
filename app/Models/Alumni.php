@@ -10,12 +10,16 @@ class Alumni extends Model
 {
     public function prodi(): BelongsTo
     {
-        return $this->belongsTo(Prodi::class);
+        return $this->belongsTo(Prodi::class,'id_prodi');
     }
 
     public function jurusan(): BelongsTo
     {
-        return $this->belongsTo(Jurusan::class);
+        return $this->belongsTo(Jurusan::class,'id_jurusan');
+    }
+    public function angkatan(): BelongsTo
+    {
+        return $this->belongsTo(Angkatan::class,'id_angkatan');
     }
     use HasFactory;
 

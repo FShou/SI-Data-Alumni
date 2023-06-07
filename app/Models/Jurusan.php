@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Jurusan extends Model
 {
-    public function prodi(): HasMany
-    {
-        return $this->hasMany(Prodi::class);
-    }
+    // public function prodi(): HasMany
+    // {
+    //     return $this->hasMany(Prodi::class);
+    // }
     use HasFactory;
     protected $table = 'jurusan';
     protected $fillable = [

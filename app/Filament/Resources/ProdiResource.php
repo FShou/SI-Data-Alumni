@@ -21,7 +21,7 @@ class ProdiResource extends Resource
 {
     protected static ?string $model = Prodi::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-library';
 
     public static function form(Form $form): Form
     {
@@ -56,7 +56,13 @@ class ProdiResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([TextColumn::make('nama_prodi')])
+            ->columns([
+                TextColumn::make('nama_prodi')
+                ->label('Nama Prodi'),
+                TextColumn::make('jurusan.nama_jurusan')
+                ->label('Jurusan')
+
+            ])
             ->filters([
                 //
             ])
