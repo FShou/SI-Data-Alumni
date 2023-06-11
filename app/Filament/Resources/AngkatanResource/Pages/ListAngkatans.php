@@ -10,6 +10,7 @@ class ListAngkatans extends ListRecords
 {
     protected static string $resource = AngkatanResource::class;
 
+    protected static ?string $title = 'Angkatan';
     protected function getActions(): array
     {
         return [

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AngkatanResource extends Resource
 {
     protected static ?string $model = Angkatan::class;
+    protected static ?string $navigationLabel =  'Angkatan';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 

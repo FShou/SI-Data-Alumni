@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditProdi extends EditRecord
 {
     protected static string $resource = ProdiResource::class;
+    protected static ?string $title = 'Prodi';
 
     protected function getActions(): array
     {

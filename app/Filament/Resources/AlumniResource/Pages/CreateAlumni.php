@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAlumni extends CreateRecord
 {
     protected static string $resource = AlumniResource::class;
+    protected static ?string $title = 'Alumni';
 }

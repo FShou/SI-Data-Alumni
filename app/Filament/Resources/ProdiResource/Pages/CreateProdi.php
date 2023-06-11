@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateProdi extends CreateRecord
 {
     protected static string $resource = ProdiResource::class;
+    protected static ?string $title = 'Prodi';
 }

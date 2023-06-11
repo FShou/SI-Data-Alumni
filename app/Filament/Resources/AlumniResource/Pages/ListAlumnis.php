@@ -10,6 +10,7 @@ class ListAlumnis extends ListRecords
 {
     protected static string $resource = AlumniResource::class;
 
+    protected static ?string $title = 'Alumni';
     protected function getActions(): array
     {
         return [

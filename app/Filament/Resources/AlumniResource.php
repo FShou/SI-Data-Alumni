@@ -27,9 +27,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AlumniResource extends Resource
 {
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationLabel =  'Alumni';
+
 
     protected static ?string $model = Alumni::class;
-    protected static ?string $modelLabel = 'Alumnus';
+    protected static ?string $modelLabel = 'Alumni';
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -132,9 +135,9 @@ class AlumniResource extends Resource
                     'K' => 'Perempuan',
                 ]),
                 TextColumn::make('pekerjaan')->enum([
-                        'Negri' => 'Negri',
-                        'Swasta' => 'Swasta',
-                        'Tidak Bekerja' => 'Tidak Bekerja',
+                    'Negri' => 'Negri',
+                    'Swasta' => 'Swasta',
+                    'Tidak Bekerja' => 'Tidak Bekerja',
                 ]),
 
                 TextColumn::make('prodi.nama_prodi')->label('Prodi'),
@@ -149,12 +152,15 @@ class AlumniResource extends Resource
                 //
                 SelectFilter::make('jurusan')
                     ->multiple()
+                    ->searchable()
                     ->relationship('jurusan', 'nama_jurusan'),
                 SelectFilter::make('prodi')
                     ->multiple()
+                    ->searchable()
                     ->relationship('prodi', 'nama_prodi'),
                 SelectFilter::make('angkatan')
                     ->multiple()
+                    ->searchable()
                     ->relationship('angkatan', 'tahun_angkatan'),
                 SelectFilter::make('pekerjaan')
                     ->searchable()
