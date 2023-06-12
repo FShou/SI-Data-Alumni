@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->char("nim",10)->unique();
             $table->string('nama_alumni',50);
-            $table->enum('gender',["L","K"])->nullable();
+            $table->enum('gender',["L","P"])->nullable();
             $table->enum('pekerjaan',["Negri","Swasta","Tidak Bekerja"])->nullable();
             $table->string("email_alumni",50)->nullable();
             $table->string("foto")->nullable();

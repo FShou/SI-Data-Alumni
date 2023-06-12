@@ -19,7 +19,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProdiResource extends Resource
 {
+    protected static ?string $navigationGroup = 'Poliban';
     protected static ?string $model = Prodi::class;
+    protected static ?string $pluralModelLabel = 'Prodi';
+    protected static ?string $slug = 'prodi';
 
     protected static ?string $navigationIcon = 'heroicon-o-library';
     protected static ?string $navigationLabel =  'Prodi';

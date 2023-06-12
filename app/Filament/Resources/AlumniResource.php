@@ -9,7 +9,9 @@ use App\Models\Angkatan;
 use App\Models\Jurusan;
 use App\Models\Prodi;
 use Filament\Forms;
+use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
@@ -18,17 +20,20 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\Column;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
+// use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AlumniResource extends Resource
 {
+    protected static ?string $navigationGroup = 'Alumni';
+    protected static ?string $pluralModelLabel = 'alumni';
+    protected static ?string $slug = 'alumni';
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
-    protected static ?string $navigationLabel =  'Alumni';
-
+    protected static ?string $navigationLabel = 'Alumni';
 
     protected static ?string $model = Alumni::class;
     protected static ?string $modelLabel = 'Alumni';
@@ -69,7 +74,7 @@ class AlumniResource extends Resource
                 ->searchable()
                 ->options([
                     'L' => 'Laki-laki',
-                    'K' => 'Perempuan',
+                    'P' => 'Perempuan',
                 ]),
             Select::make('id_prodi')
                 ->label('Prodi')
@@ -110,12 +115,12 @@ class AlumniResource extends Resource
                 ->options(Angkatan::all()->pluck('tahun_angkatan', 'id'))
                 ->searchable(),
             // TODO: Setup File Storage
-            // FileUpload::make('foto')
-            //     ->image()
-            //     ->maxSize(2048)
-            //     ->panelAspectRatio('2:1')
-            //     ->imageResizeMode('cover')
-            //     ->imageCropAspectRatio('3:4'),
+            FileUpload::make('foto')
+                ->image()
+                // ->maxSize(2048)
+                // ->panelAspectRatio('3:1')
+                // ->imageResizeMode('cover')
+                ->imageCropAspectRatio('3:4'),
         ]);
     }
 
@@ -124,6 +129,7 @@ class AlumniResource extends Resource
         return $table
             ->columns([
                 // @TODO: menampilkan Foto
+                ImageColumn::make('foto')->circular(),
                 TextColumn::make('nim')
                     ->wrap()
                     ->searchable(),
@@ -132,7 +138,7 @@ class AlumniResource extends Resource
                     ->searchable(),
                 TextColumn::make('gender')->enum([
                     'L' => 'Laki-laki',
-                    'K' => 'Perempuan',
+                    'P' => 'Perempuan',
                 ]),
                 TextColumn::make('pekerjaan')->enum([
                     'Negri' => 'Negri',
@@ -185,8 +191,8 @@ class AlumniResource extends Resource
     {
         return [
             'index' => Pages\ListAlumnis::route('/'),
-            'create' => Pages\CreateAlumni::route('/create'),
-            'edit' => Pages\EditAlumni::route('/{record}/edit'),
+            'create' => Pages\CreateAlumni::route('/buat'),
+            'edit' => Pages\EditAlumni::route('/{record}/ubah'),
         ];
     }
 }
