@@ -31,7 +31,7 @@ class ProdiResource extends Resource
     {
         return $form->schema([
             //
-            TextInput::make('kode_prodi')
+            TextInput::make('id_prodi')
                 ->label('Kode Prodi')
                 ->hint('Kode Jurusan + Kode Prodi : C03')
                 ->autofocus()
@@ -39,11 +39,11 @@ class ProdiResource extends Resource
                 ->length(3)
                 ->reactive()
                 ->afterStateUpdated(function (callable $set, $state) {
-                    $set('kode_prodi', ucfirst($state));
-                    $jurusan = Jurusan::where('kode_jurusan', 'like', ucfirst(substr($state, 0, 1)))->first();
+                    $set('id_prodi', ucfirst($state));
+                    $jurusan = Jurusan::where('id_jurusan', 'like', ucfirst(substr($state, 0, 1)))->first();
                     if ($jurusan) {
                         $jurusan->toArray();
-                        $set('id_jurusan', $jurusan['id']);
+                        $set('id_jurusan', $jurusan['id_jurusan']);
                     }
                 }),
             TextInput::make('nama_prodi')
@@ -53,7 +53,7 @@ class ProdiResource extends Resource
             Select::make('id_jurusan')
                 ->label('Jurusan')
                 ->disabled()
-                ->options(Jurusan::all()->pluck('nama_jurusan', 'id')),
+                ->options(Jurusan::all()->pluck('nama_jurusan', 'id_jurusan')),
         ]);
     }
 
@@ -70,7 +70,11 @@ class ProdiResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([Tables\Actions\EditAction::make()])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+
+            ])
             ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
     }
 
@@ -85,8 +89,8 @@ class ProdiResource extends Resource
     {
         return [
             'index' => Pages\ListProdis::route('/'),
-            'create' => Pages\CreateProdi::route('/create'),
-            'edit' => Pages\EditProdi::route('/{record}/edit'),
+            // 'create' => Pages\CreateProdi::route('/buat'),
+            // 'edit' => Pages\EditProdi::route('/{record}/ubah'),
         ];
     }
 }

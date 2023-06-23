@@ -4,8 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\NarahubungResource\Pages;
 use App\Filament\Resources\NarahubungResource\RelationManagers;
+use App\Models\Angkatan;
 use App\Models\Narahubung;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -36,7 +38,12 @@ class NarahubungResource extends Resource
                 TextInput::make('email_narahubung')
                     ->label('Email')
                     ->maxLength(50)
-                    ->email()
+                    ->email(),
+                Select::make('id_angkatan')
+                    ->label('Angkatan')
+                    ->required()
+                    ->searchable()
+                    ->options(Angkatan::all()->pluck('tahun_angkatan', 'id'))
             ]);
     }
 
@@ -47,7 +54,8 @@ class NarahubungResource extends Resource
                 TextColumn::make('nama_narahubung')
                 ->label('Nama'),
                 TextColumn::make('email_narahubung')
-                ->label('Email')
+                ->label('Email'),
+                TextColumn::make('angkatan.tahun_angkatan')
             ])
             ->filters([
                 //
@@ -71,8 +79,8 @@ class NarahubungResource extends Resource
     {
         return [
             'index' => Pages\ListNarahubungs::route('/'),
-            'create' => Pages\CreateNarahubung::route('/create'),
-            'edit' => Pages\EditNarahubung::route('/{record}/edit'),
+            // 'create' => Pages\CreateNarahubung::route('/buat'),
+            // 'edit' => Pages\EditNarahubung::route('/{record}/ubah'),
         ];
     }
 }

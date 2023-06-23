@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AlumniResource\Pages;
-use App\Filament\Resources\AlumniResource\RelationManagers;
 use App\Models\Alumni;
 use App\Models\Angkatan;
 use App\Models\Jurusan;
@@ -21,7 +20,6 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 // use Illuminate\Database\Eloquent\Builder;
@@ -51,17 +49,18 @@ class AlumniResource extends Resource
                 ->reactive()
                 ->afterStateUpdated(function (callable $set, $state) {
                     // Auofill Prodi & Jurusan
+
                     $set('nim', strtoupper($state));
-                    $jurusan = Jurusan::where('kode_jurusan', 'like', ucfirst(substr($state, 0, 1)))->first();
+                    $jurusan = Jurusan::where('id_jurusan', 'like', ucfirst(substr($state, 0, 1)))->first();
                     if ($jurusan) {
                         $jurusan->toArray();
-                        $set('id_jurusan', $jurusan['id']);
+                        $set('id_jurusan', $jurusan['id_jurusan']);
                     }
 
-                    $prodi = Prodi::where('kode_prodi', 'like', ucfirst(substr($state, 0, 3)))->first();
+                    $prodi = Prodi::where('id_prodi', 'like', ucfirst(substr($state, 0, 3)))->first();
                     if ($prodi) {
                         $prodi->toArray();
-                        $set('id_prodi', $prodi['id']);
+                        $set('id_prodi', $prodi['id_prodi']);
                     }
                 }),
 
@@ -73,16 +72,16 @@ class AlumniResource extends Resource
             Select::make('gender')
                 ->searchable()
                 ->options([
-                    'L' => 'Laki-laki',
-                    'P' => 'Perempuan',
+                    'Laki-laki' => 'Laki-laki',
+                    'Perempuan' => 'Perempuan',
                 ]),
             Select::make('id_prodi')
                 ->label('Prodi')
                 ->hint('Diambil dari Nim')
                 ->placeholder('-')
                 ->options(function (callable $get) {
-                    $prodi = Prodi::where('kode_prodi', 'like', ucfirst(substr($get('nim'), 0, 3)));
-                    return $prodi->pluck('nama_prodi', 'id');
+                    $prodi = Prodi::where('id_prodi', 'like', ucfirst(substr($get('nim'), 0, 3)));
+                    return $prodi->pluck('nama_prodi', 'id_prodi');
                 })
                 ->required()
                 ->disabled(),
@@ -92,15 +91,15 @@ class AlumniResource extends Resource
                 ->hint('Diambil dari Nim')
                 ->placeholder('-')
                 ->options(function (callable $get) {
-                    $jurusan = Jurusan::where('kode_jurusan', 'like', ucfirst(substr($get('nim'), 0, 1)));
-                    return $jurusan->pluck('nama_jurusan', 'id');
+                    $jurusan = Jurusan::where('id_jurusan', 'like', ucfirst(substr($get('nim'), 0, 1)));
+                    return $jurusan->pluck('nama_jurusan', 'id_jurusan');
                 })
                 ->required()
                 ->disabled(),
-            Select::make('pekerjaan')
+            Select::make('perusahaan')
                 ->searchable()
                 ->options([
-                    'Negri' => 'Negri',
+                    'Negeri' => 'Negeri',
                     'Swasta' => 'Swasta',
                     'Tidak Bekerja' => 'Tidak Bekerja',
                 ]),
@@ -109,12 +108,30 @@ class AlumniResource extends Resource
                 ->disableAutocomplete()
                 ->label('Email')
                 ->maxLength(50),
+            TextInput::make('ipk')
+                ->label('IPK')
+                ->numeric()
+                ->hint('Contoh: 3.40')
+                ->nullable()
+                ->mask(
+                    fn(TextInput\Mask $mask) => $mask
+                        ->numeric()
+                        ->minValue(0)
+                        ->maxValue(4)
+                        ->decimalPlaces(2)
+                        ->padFractionalZeros()
+                        ->decimalSeparator('.')
+                        ->mapToDecimalSeparator([',']),
+                ),
+            TextInput::make('judul_ta')
+            ->label('Judul TA'),
+
 
             Select::make('id_angkatan')
                 ->label('Angkatan')
                 ->options(Angkatan::all()->pluck('tahun_angkatan', 'id'))
+               ->required()
                 ->searchable(),
-            // TODO: Setup File Storage
             FileUpload::make('foto')
                 ->image()
                 // ->maxSize(2048)
@@ -128,30 +145,56 @@ class AlumniResource extends Resource
     {
         return $table
             ->columns([
-                // @TODO: menampilkan Foto
-                ImageColumn::make('foto')->circular(),
-                TextColumn::make('nim')
-                    ->wrap()
-                    ->searchable(),
+                //
+                ImageColumn::make('foto')
+                    ->circular(),
+                    // ->grow(false),
+
                 TextColumn::make('nama_alumni')
                     ->label('Nama')
+                    ->weight('bold')
+                    ->icon('heroicon-o-academic-cap')
                     ->searchable(),
-                TextColumn::make('gender')->enum([
-                    'L' => 'Laki-laki',
-                    'P' => 'Perempuan',
-                ]),
-                TextColumn::make('pekerjaan')->enum([
-                    'Negri' => 'Negri',
-                    'Swasta' => 'Swasta',
-                    'Tidak Bekerja' => 'Tidak Bekerja',
-                ]),
+                TextColumn::make('nim')->searchable(),
+                TextColumn::make('gender')
+                    ->enum([
+                        'Laki-laki' => 'Laki-laki',
+                        'Perempuan' => 'Perempuan',
+                    ])
+                    ->grow(false),
+                TextColumn::make('perusahaan')
+                    ->enum([
+                        'Negeri' => 'Negeri',
+                        'Swasta' => 'Swasta',
+                        'Tidak Bekerja' => 'Tidak Bekerja',
+                    ])
+                    ->placeholder('-')
+                    ->toggleable(),
+                TextColumn::make('ipk')
+                    ->label('IPK')
+                    ->placeholder('-')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                TextColumn::make('judul_ta')
+                    ->label('Judul TA')
+                    ->placeholder('-')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
 
-                TextColumn::make('prodi.nama_prodi')->label('Prodi'),
-                TextColumn::make('jurusan.nama_jurusan')->label('Jurusan'),
+                TextColumn::make('prodi.nama_prodi')
+                    ->label('Prodi')
+                    ->weight('bold')
+                    ->size('md'),
+                TextColumn::make('jurusan.nama_jurusan')
+                    ->label('Jurusan')
+                    ->size('sm'),
+
                 TextColumn::make('angkatan.tahun_angkatan')->label('Angkatan'),
 
                 TextColumn::make('email_alumni')
                     ->label('Email')
+                    ->toggleable()
+                    ->toggledHiddenByDefault()
                     ->placeholder('-'),
             ])
             ->filters([
@@ -168,16 +211,16 @@ class AlumniResource extends Resource
                     ->multiple()
                     ->searchable()
                     ->relationship('angkatan', 'tahun_angkatan'),
-                SelectFilter::make('pekerjaan')
+                SelectFilter::make('perusahaan')
                     ->searchable()
                     ->options([
-                        'Negri' => 'Negri',
+                        'Negeri' => 'Negeri',
                         'Swasta' => 'Swasta',
                         'Tidak Bekerja' => 'Tidak Bekerja',
                     ]),
             ])
             ->actions([Tables\Actions\EditAction::make()])
-            ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
+        ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
     }
 
     public static function getRelations(): array

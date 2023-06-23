@@ -11,11 +11,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('prodi', function (Blueprint $table) {
-            $table->id();
-            $table->char('kode_prodi',3);
+            $table->char('id_prodi', 3);
+            $table->primary('id_prodi');
             $table->string('nama_prodi', 50);
-            $table->foreignId('id_jurusan');
-            $table->foreign('id_jurusan')->references('id')->on('jurusan');
+            $table->char('id_jurusan',1);
+            $table
+                ->foreign('id_jurusan')
+                ->references('id_jurusan')
+                ->on('jurusan');
             $table->timestamps();
         });
     }

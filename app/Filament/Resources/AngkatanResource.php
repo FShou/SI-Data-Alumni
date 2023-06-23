@@ -35,6 +35,7 @@ class AngkatanResource extends Resource
                 ->required()
                 ->placeholder('-')
                 ->autofocus()
+
             ]);
     }
 
@@ -43,13 +44,14 @@ class AngkatanResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('tahun_angkatan') -> searchable()
+                TextColumn::make('tahun_angkatan') -> searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -67,8 +69,8 @@ class AngkatanResource extends Resource
     {
         return [
             'index' => Pages\ListAngkatans::route('/'),
-            'create' => Pages\CreateAngkatan::route('/create'),
-            'edit' => Pages\EditAngkatan::route('/{record}/edit'),
+            // 'create' => Pages\CreateAngkatan::route('/buat'),
+            // 'edit' => Pages\EditAngkatan::route('/{record}/ubah'),
         ];
     }
 }

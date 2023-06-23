@@ -23,9 +23,8 @@ class Prodi extends Model
 
     // Database properties
     protected $table = 'prodi';
-    protected $fillable = [
-        'nama_prodi',
-        'id_jurusan',
-        'kode_prodi'
-    ];
+    protected $primaryKey= 'id_prodi';
+    protected $keyType= 'char';
+    public $incrementing= false;
+    protected $guarded = [];
 }

@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('nama_narahubung', 50);
             $table->string('email_narahubung', 50)->nullable();
+            $table->foreignId('id_angkatan')->nullable();
+            $table->foreign('id_angkatan')->references('id')->on('angkatan');
             $table->timestamps();
         });
     }

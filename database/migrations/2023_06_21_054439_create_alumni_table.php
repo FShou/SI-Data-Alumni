@@ -14,18 +14,21 @@ return new class extends Migration {
             $table->id();
             $table->char("nim",10)->unique();
             $table->string('nama_alumni',50);
-            $table->enum('gender',["L","P"])->nullable();
-            $table->enum('pekerjaan',["Negri","Swasta","Tidak Bekerja"])->nullable();
+            $table->enum('gender',["Laki-laki","Perempuan"])->nullable();
+            $table->enum('perusahaan',["Negeri","Swasta","Tidak Bekerja"])->nullable();
+            $table->double('ipk',3,2)->nullable();
+            $table->text('judul_ta')->nullable();
             $table->string("email_alumni",50)->nullable();
             $table->string("foto")->nullable();
-            $table->foreignId("id_prodi")->index();
-            $table->foreign("id_prodi")->references("id")->on("prodi");
-            $table->foreignId("id_jurusan");
-            $table->foreign("id_jurusan")->references("id")->on("jurusan");
+            $table->char("id_prodi",3)->index();
+            $table->foreign("id_prodi")->references("id_prodi")->on("prodi");
+            $table->char("id_jurusan",1);
+            $table->foreign("id_jurusan")->references("id_jurusan")->on("jurusan");
             $table->foreignId("id_angkatan");
             $table->foreign("id_angkatan")->references("id")->on("angkatan");
-            $table->foreignId("id_narahubung")->nullable();
-            $table->foreign("id_narahubung")->references("id")->on("narahubung");
+
+            // $table->foreignId("id_narahubung")->nullable();
+            // $table->foreign("id_narahubung")->references("id")->on("narahubung");
             $table->timestamps();
         });
     }

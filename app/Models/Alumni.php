@@ -10,12 +10,12 @@ class Alumni extends Model
 {
     public function prodi(): BelongsTo
     {
-        return $this->belongsTo(Prodi::class,'id_prodi');
+        return $this->belongsTo(Prodi::class,'id_prodi','id_prodi');
     }
 
     public function jurusan(): BelongsTo
     {
-        return $this->belongsTo(Jurusan::class,'id_jurusan');
+        return $this->belongsTo(Jurusan::class,'id_jurusan','id_jurusan');
     }
     public function angkatan(): BelongsTo
     {
@@ -25,17 +25,6 @@ class Alumni extends Model
 
     // database properties
     protected $table = 'alumni';
-    protected $fillable = [
-        'nim',
-        'nama_alumni',
-        'gender',
-        'email_alumni',
-        'foto',
-        'pekerjaan',
-        'id_prodi',
-        'id_jurusan',
-        'id_angkatan',
-        'id_narahubung',
-    ];
 
+    protected $guarded=[];
 }

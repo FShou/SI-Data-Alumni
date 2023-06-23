@@ -30,11 +30,12 @@ class JurusanResource extends Resource
         return $form
             ->schema([
                 //
-                TextInput::make('kode_jurusan')
+                TextInput::make('id_jurusan')
+                ->label('Kode Jurusan')
                 ->required()
                 ->length(1)
                 ->reactive()
-                ->afterStateUpdated(fn (callable $set,$state) => $set('kode_jurusan',ucfirst($state)) ),
+                ->afterStateUpdated(fn (callable $set,$state) => $set('id_jurusan',ucfirst($state)) ),
                 TextInput::make('nama_jurusan')->required(),
 
             ]);
@@ -54,6 +55,7 @@ class JurusanResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -71,8 +73,8 @@ class JurusanResource extends Resource
     {
         return [
             'index' => Pages\ListJurusans::route('/'),
-            'create' => Pages\CreateJurusan::route('/create'),
-            'edit' => Pages\EditJurusan::route('/{record}/edit'),
+            // 'create' => Pages\CreateJurusan::route('/buat'),
+            // 'edit' => Pages\EditJurusan::route('/{record}/ubah'),
         ];
     }
 }
