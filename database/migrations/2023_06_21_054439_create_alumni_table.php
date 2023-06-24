@@ -26,6 +26,8 @@ return new class extends Migration {
             $table->foreign("id_jurusan")->references("id_jurusan")->on("jurusan");
             $table->foreignId("id_angkatan");
             $table->foreign("id_angkatan")->references("id")->on("angkatan");
+            $table->foreignId('id_user')->nullable();
+            $table->foreign('id_user')->references('id')->on('users');
 
             // $table->foreignId("id_narahubung")->nullable();
             // $table->foreign("id_narahubung")->references("id")->on("narahubung");

@@ -21,6 +21,10 @@ class Alumni extends Model
     {
         return $this->belongsTo(Angkatan::class,'id_angkatan');
     }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'id_user');
+    }
     use HasFactory;
 
     // database properties

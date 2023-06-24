@@ -8,7 +8,7 @@ use App\Models\Angkatan;
 use App\Models\Jurusan;
 use App\Models\Prodi;
 use Filament\Forms;
-use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
@@ -22,7 +22,7 @@ use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
-// use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AlumniResource extends Resource
@@ -40,6 +40,17 @@ class AlumniResource extends Resource
     {
         return $form->schema([
             //
+            Card::make()->schema([
+
+            FileUpload::make('foto')
+                ->image()
+                // ->maxSize(2048)
+                // ->panelAspectRatio('3:1')
+                // ->imageResizeMode('cover')
+                ->imageCropAspectRatio('3:4'),
+            ]),
+            Card::make()->schema([
+
             TextInput::make('nim')
                 ->required()
                 ->autofocus()
@@ -63,18 +74,11 @@ class AlumniResource extends Resource
                         $set('id_prodi', $prodi['id_prodi']);
                     }
                 }),
-
             TextInput::make('nama_alumni')
                 ->label('Nama Alumni')
                 ->disableAutocomplete()
                 ->required()
                 ->maxLength(50),
-            Select::make('gender')
-                ->searchable()
-                ->options([
-                    'Laki-laki' => 'Laki-laki',
-                    'Perempuan' => 'Perempuan',
-                ]),
             Select::make('id_prodi')
                 ->label('Prodi')
                 ->hint('Diambil dari Nim')
@@ -96,6 +100,16 @@ class AlumniResource extends Resource
                 })
                 ->required()
                 ->disabled(),
+            Select::make('gender')
+                ->searchable()
+                ->options([
+                    'Laki-laki' => 'Laki-laki',
+                    'Perempuan' => 'Perempuan',
+                ])->columnSpanFull(),
+            ])->columns(2),
+
+            Card::make()->schema([
+
             Select::make('perusahaan')
                 ->searchable()
                 ->options([
@@ -123,21 +137,14 @@ class AlumniResource extends Resource
                         ->decimalSeparator('.')
                         ->mapToDecimalSeparator([',']),
                 ),
-            TextInput::make('judul_ta')
-            ->label('Judul TA'),
-
+            TextInput::make('judul_ta')->label('Judul TA'),
 
             Select::make('id_angkatan')
                 ->label('Angkatan')
                 ->options(Angkatan::all()->pluck('tahun_angkatan', 'id'))
-               ->required()
+                ->required()
                 ->searchable(),
-            FileUpload::make('foto')
-                ->image()
-                // ->maxSize(2048)
-                // ->panelAspectRatio('3:1')
-                // ->imageResizeMode('cover')
-                ->imageCropAspectRatio('3:4'),
+            ])->columns(2),
         ]);
     }
 
@@ -146,9 +153,8 @@ class AlumniResource extends Resource
         return $table
             ->columns([
                 //
-                ImageColumn::make('foto')
-                    ->circular(),
-                    // ->grow(false),
+                ImageColumn::make('foto')->circular(),
+                // ->grow(false),
 
                 TextColumn::make('nama_alumni')
                     ->label('Nama')
@@ -220,14 +226,16 @@ class AlumniResource extends Resource
                     ]),
             ])
             ->actions([Tables\Actions\EditAction::make()])
-        ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
+            ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
     }
 
-    public static function getRelations(): array
+    public static function getEloquentQuery(): Builder
     {
-        return [
-                //
-            ];
+        if(!auth()->user()->hasRole('Admin'))
+        {
+            return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
+        }
+        return parent::getEloquentQuery();
     }
 
     public static function getPages(): array

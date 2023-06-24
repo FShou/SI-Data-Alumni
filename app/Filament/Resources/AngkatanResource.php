@@ -35,6 +35,7 @@ class AngkatanResource extends Resource
                 ->required()
                 ->placeholder('-')
                 ->autofocus()
+                ->columnSpanFull()
 
             ]);
     }
