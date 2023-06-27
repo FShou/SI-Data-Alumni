@@ -28,10 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Filament::registerNavigationGroups([
-            'Akun',
-            'Alumni',
-            'Poliban'
-        ]);
+        Filament::registerNavigationGroups(['Akun', 'Alumni', 'Poliban']);
+        Filament::serving(function () {
+            // Using Vite
+            Filament::registerViteTheme('resources/css/filament.css');
+        });
     }
 }

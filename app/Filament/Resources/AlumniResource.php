@@ -110,6 +110,11 @@ class AlumniResource extends Resource
 
             Card::make()->schema([
 
+            TextInput::make('email_alumni')
+                ->email()
+                ->disableAutocomplete()
+                ->label('Email')
+                ->maxLength(50),
             Select::make('perusahaan')
                 ->searchable()
                 ->options([
@@ -117,11 +122,6 @@ class AlumniResource extends Resource
                     'Swasta' => 'Swasta',
                     'Tidak Bekerja' => 'Tidak Bekerja',
                 ]),
-            TextInput::make('email_alumni')
-                ->email()
-                ->disableAutocomplete()
-                ->label('Email')
-                ->maxLength(50),
             TextInput::make('ipk')
                 ->label('IPK')
                 ->numeric()
@@ -137,13 +137,15 @@ class AlumniResource extends Resource
                         ->decimalSeparator('.')
                         ->mapToDecimalSeparator([',']),
                 ),
-            TextInput::make('judul_ta')->label('Judul TA'),
 
             Select::make('id_angkatan')
                 ->label('Angkatan')
                 ->options(Angkatan::all()->pluck('tahun_angkatan', 'id'))
                 ->required()
                 ->searchable(),
+                TextInput::make('judul_ta')
+                ->columnSpanFull()
+                ->label('Judul TA'),
             ])->columns(2),
         ]);
     }

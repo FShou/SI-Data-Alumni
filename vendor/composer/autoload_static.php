@@ -144,7 +144,6 @@ class ComposerStaticInit11cd0306b0ecd22d8dde7335856262a1
             'Laravel\\SerializableClosure\\' => 28,
             'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
-            'Laravel\\Breeze\\' => 15,
         ),
         'I' => 
         array (
@@ -489,10 +488,6 @@ class ComposerStaticInit11cd0306b0ecd22d8dde7335856262a1
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
         ),
-        'Laravel\\Breeze\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laravel/breeze/src',
-        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -682,10 +677,6 @@ class ComposerStaticInit11cd0306b0ecd22d8dde7335856262a1
         'App\\Filament\\Resources\\NarahubungResource\\Pages\\CreateNarahubung' => __DIR__ . '/../..' . '/app/Filament/Resources/NarahubungResource/Pages/CreateNarahubung.php',
         'App\\Filament\\Resources\\NarahubungResource\\Pages\\EditNarahubung' => __DIR__ . '/../..' . '/app/Filament/Resources/NarahubungResource/Pages/EditNarahubung.php',
         'App\\Filament\\Resources\\NarahubungResource\\Pages\\ListNarahubungs' => __DIR__ . '/../..' . '/app/Filament/Resources/NarahubungResource/Pages/ListNarahubungs.php',
-        'App\\Filament\\Resources\\PermissionResource' => __DIR__ . '/../..' . '/app/Filament/Resources/PermissionResource.php',
-        'App\\Filament\\Resources\\PermissionResource\\Pages\\CreatePermission' => __DIR__ . '/../..' . '/app/Filament/Resources/PermissionResource/Pages/CreatePermission.php',
-        'App\\Filament\\Resources\\PermissionResource\\Pages\\EditPermission' => __DIR__ . '/../..' . '/app/Filament/Resources/PermissionResource/Pages/EditPermission.php',
-        'App\\Filament\\Resources\\PermissionResource\\Pages\\ListPermissions' => __DIR__ . '/../..' . '/app/Filament/Resources/PermissionResource/Pages/ListPermissions.php',
         'App\\Filament\\Resources\\PostResource' => __DIR__ . '/../..' . '/app/Filament/Resources/PostResource.php',
         'App\\Filament\\Resources\\PostResource\\Pages\\CreatePost' => __DIR__ . '/../..' . '/app/Filament/Resources/PostResource/Pages/CreatePost.php',
         'App\\Filament\\Resources\\PostResource\\Pages\\EditPost' => __DIR__ . '/../..' . '/app/Filament/Resources/PostResource/Pages/EditPost.php',
@@ -731,8 +722,15 @@ class ComposerStaticInit11cd0306b0ecd22d8dde7335856262a1
         'App\\Models\\Narahubung' => __DIR__ . '/../..' . '/app/Models/Narahubung.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\Prodi' => __DIR__ . '/../..' . '/app/Models/Prodi.php',
+        'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Policies\\AlumniPolicy' => __DIR__ . '/../..' . '/app/Policies/AlumniPolicy.php',
+        'App\\Policies\\AngkatanPolicy' => __DIR__ . '/../..' . '/app/Policies/AngkatanPolicy.php',
+        'App\\Policies\\JurusanPolicy' => __DIR__ . '/../..' . '/app/Policies/JurusanPolicy.php',
+        'App\\Policies\\NarahubungPolicy' => __DIR__ . '/../..' . '/app/Policies/NarahubungPolicy.php',
+        'App\\Policies\\ProdiPolicy' => __DIR__ . '/../..' . '/app/Policies/ProdiPolicy.php',
+        'App\\Policies\\RolePolicy' => __DIR__ . '/../..' . '/app/Policies/RolePolicy.php',
+        'App\\Policies\\UserPolicy' => __DIR__ . '/../..' . '/app/Policies/UserPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -3911,11 +3909,6 @@ class ComposerStaticInit11cd0306b0ecd22d8dde7335856262a1
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
-        'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
-        'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',
-        'Laravel\\Breeze\\Console\\InstallsApiStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsApiStack.php',
-        'Laravel\\Breeze\\Console\\InstallsBladeStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsBladeStack.php',
-        'Laravel\\Breeze\\Console\\InstallsInertiaStacks' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsInertiaStacks.php',
         'Laravel\\Sail\\Console\\AddCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/AddCommand.php',
         'Laravel\\Sail\\Console\\Concerns\\InteractsWithDockerComposeServices' => __DIR__ . '/..' . '/laravel/sail/src/Console/Concerns/InteractsWithDockerComposeServices.php',
         'Laravel\\Sail\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/InstallCommand.php',

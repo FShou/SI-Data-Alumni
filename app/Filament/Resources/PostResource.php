@@ -36,11 +36,11 @@ class PostResource extends Resource
             Card::make()
                 ->schema([
                     // ...
-                    TextInput::make('judul_post')
-                    ->label('Judul Post')
-                    ->unique()
-                    ->required()
-                    ->maxLength(255),
+                    // TextInput::make('judul_post')
+                    // ->label('Judul Post')
+                    // ->unique()
+                    // // ->required()
+                    // ->maxLength(255),
                     Forms\Components\Textarea::make('isi')
                         ->required()
                 ->rows(15)
@@ -68,7 +68,7 @@ FileUpload::make('foto_post')
             ->columns([
                 Tables\Columns\TextColumn::make('user.name'),
                 Tables\Columns\TextColumn::make('isi'),
-                Tables\Columns\TextColumn::make('foto_post'),
+                // Tables\Columns\TextColumn::make('foto_post'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')->dateTime(),
                 ToggleColumn::make('approved')->visible(

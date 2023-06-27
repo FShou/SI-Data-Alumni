@@ -33,7 +33,6 @@ class AlumniPolicy
     public function create(User $user): bool
     {
         //
-
         return $user->hasRole('Admin');
     }
 

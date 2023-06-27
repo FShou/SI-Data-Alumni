@@ -43,12 +43,6 @@ class UserResource extends Resource
                         ->email()
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('password')
-                        ->password()
-                        ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                        ->dehydrated(fn($state) => filled($state))
-                        ->required(fn(Page $livewire) => $livewire instanceof CreateUser)
-                        ->maxLength(255),
                     Select::make('roles')
                         ->multiple()
                         ->visible(
@@ -58,6 +52,12 @@ class UserResource extends Resource
                         )
                         ->relationship('roles', 'name')
                         ->preload(),
+                    Forms\Components\TextInput::make('password')
+                        ->password()
+                        ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                        ->dehydrated(fn($state) => filled($state))
+                        ->required(fn(Page $livewire) => $livewire instanceof CreateUser)
+                        ->maxLength(255),
                 ])
                 ->columns(2),
         ]);
