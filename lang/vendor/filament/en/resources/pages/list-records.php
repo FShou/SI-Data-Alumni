@@ -2,6 +2,6 @@
 
 return [
 
-    'breadcrumb' => 'Daftar',
+    'breadcrumb' => '',
 
 ];

@@ -33,18 +33,23 @@ class PostResource extends Resource
     {
         return $form->schema([
             // Forms\Components\TextInput::make('id_user')->required(),
+            Card::make()->schema([
+                FileUpload::make('foto_post')
+                    ->required()
+                    ->image(),
+            ]),
             Card::make()
                 ->schema([
                     // ...
-                    // TextInput::make('judul_post')
-                    // ->label('Judul Post')
-                    // ->unique()
-                    // // ->required()
-                    // ->maxLength(255),
+                    TextInput::make('judul_post')
+                        ->label('Judul Post')
+                        ->unique()
+                        ->required()
+                        ->maxLength(255),
                     Forms\Components\Textarea::make('isi')
                         ->required()
-                ->rows(15)
-                ->maxLength(65535),
+                        ->rows(15)
+                        ->maxLength(65535),
                     Toggle::make('approved')->visible(
                         auth()
                             ->user()
@@ -53,12 +58,6 @@ class PostResource extends Resource
                 ])
                 ->columns(1),
 
-            Card::make()
-            ->schema([
-FileUpload::make('foto_post')
-                ->required()
-                ->image(),
-            ])
         ]);
     }
 
@@ -67,10 +66,14 @@ FileUpload::make('foto_post')
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('isi'),
+                Tables\Columns\TextColumn::make('judul_post'),
                 // Tables\Columns\TextColumn::make('foto_post'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')->dateTime(),
+                Tables\Columns\TextColumn::make('created_at')
+                ->label('Dibuat pada')
+                ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                ->label('Terakhir diubah')
+                ->dateTime(),
                 ToggleColumn::make('approved')->visible(
                     auth()
                         ->user()
@@ -81,7 +84,7 @@ FileUpload::make('foto_post')
                 //
             ])
             ->actions([Tables\Actions\EditAction::make()])
-            ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
+            ->bulkActions([]);
     }
 
     public static function getEloquentQuery(): Builder

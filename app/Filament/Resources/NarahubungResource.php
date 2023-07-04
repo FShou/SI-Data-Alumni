@@ -4,8 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\NarahubungResource\Pages;
 use App\Filament\Resources\NarahubungResource\RelationManagers;
+use App\Models\Alumni;
 use App\Models\Angkatan;
 use App\Models\Narahubung;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -32,18 +34,27 @@ class NarahubungResource extends Resource
         return $form
             ->schema([
                 //
-                TextInput::make('nama_narahubung')
-                    ->label('Nama')
-                    ->maxLength(50),
-                TextInput::make('email_narahubung')
-                    ->label('Email')
-                    ->maxLength(50)
-                    ->email(),
                 Select::make('id_angkatan')
                     ->label('Angkatan')
                     ->required()
                     ->searchable()
-                    ->options(Angkatan::all()->pluck('tahun_angkatan', 'id'))
+                    ->reactive()
+                    ->options(Angkatan::all()->pluck('tahun_angkatan', 'id')),
+                // TextInput::make('nama_narahubung')
+                //     ->label('Nama')
+                //     ->maxLength(50),
+                Select::make('nama_narahubung')
+                ->label('Nama Narahubung')
+                ->placeholder('-')
+                    ->searchable()
+                ->options(function( $get){
+                    $angkatan = $get('id_angkatan');
+                    return Alumni::where('id_angkatan','=',$angkatan)->pluck('nama_alumni','nama_alumni');
+                }),
+                TextInput::make('email_narahubung')
+                    ->label('Email')
+                    ->maxLength(50)
+                    ->email(),
             ]);
     }
 
@@ -51,20 +62,21 @@ class NarahubungResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('angkatan.tahun_angkatan'),
                 TextColumn::make('nama_narahubung')
                 ->label('Nama'),
-                TextColumn::make('email_narahubung')
-                ->label('Email'),
-                TextColumn::make('angkatan.tahun_angkatan')
+                // TextColumn::make('email_narahubung')
+                // ->label('Email'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

@@ -67,10 +67,16 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('name')
+                ->label('Nama')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('email')->searchable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime('d-m-Y'),
-                TextColumn::make('roles.name')->visible(
+                Tables\Columns\TextColumn::make('created_at')
+                ->label('Dibuat pada')
+                ->dateTime('d-m-Y'),
+                TextColumn::make('roles.name')
+                ->label('Role')
+                ->visible(
                     auth()
                         ->user()
                         ->hasRole('Admin'),

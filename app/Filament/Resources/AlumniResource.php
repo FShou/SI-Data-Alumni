@@ -160,8 +160,6 @@ class AlumniResource extends Resource
 
                 TextColumn::make('nama_alumni')
                     ->label('Nama')
-                    ->weight('bold')
-                    ->icon('heroicon-o-academic-cap')
                     ->searchable(),
                 TextColumn::make('nim')->searchable(),
                 TextColumn::make('gender')
@@ -190,12 +188,9 @@ class AlumniResource extends Resource
                     ->toggledHiddenByDefault(),
 
                 TextColumn::make('prodi.nama_prodi')
-                    ->label('Prodi')
-                    ->weight('bold')
-                    ->size('md'),
+                   ->label('Prodi'),
                 TextColumn::make('jurusan.nama_jurusan')
-                    ->label('Jurusan')
-                    ->size('sm'),
+                    ->label('Jurusan'),
 
                 TextColumn::make('angkatan.tahun_angkatan')->label('Angkatan'),
 
@@ -227,8 +222,11 @@ class AlumniResource extends Resource
                         'Tidak Bekerja' => 'Tidak Bekerja',
                     ]),
             ])
-            ->actions([Tables\Actions\EditAction::make()])
-            ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+            ])
+            ->bulkActions([]);
     }
 
     public static function getEloquentQuery(): Builder
