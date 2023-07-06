@@ -51,10 +51,10 @@ class NarahubungResource extends Resource
                     $angkatan = $get('id_angkatan');
                     return Alumni::where('id_angkatan','=',$angkatan)->pluck('nama_alumni','nama_alumni');
                 }),
-                TextInput::make('email_narahubung')
-                    ->label('Email')
-                    ->maxLength(50)
-                    ->email(),
+                // TextInput::make('email_narahubung')
+                //     ->label('Email')
+                //     ->maxLength(50)
+                //     ->email(),
             ]);
     }
 

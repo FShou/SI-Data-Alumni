@@ -36,10 +36,10 @@ class RoleResource extends Resource
                 ->label('Nama Role')
                 ->unique(ignoreRecord:true)
                 ->required(),
-                Select::make('permissions')
-                ->multiple()
-                ->relationship('permissions','name')
-                ->preload()
+                // Select::make('permissions')
+                // ->multiple()
+                // ->relationship('permissions','name')
+                // ->preload()
 
             ]);
     }

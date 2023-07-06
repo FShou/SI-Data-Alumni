@@ -102,6 +102,7 @@ class AlumniResource extends Resource
                 ->disabled(),
             Select::make('gender')
                 ->searchable()
+                ->required()
                 ->options([
                     'Laki-laki' => 'Laki-laki',
                     'Perempuan' => 'Perempuan',
@@ -112,11 +113,13 @@ class AlumniResource extends Resource
 
             TextInput::make('email_alumni')
                 ->email()
+                ->required()
                 ->disableAutocomplete()
                 ->label('Email')
                 ->maxLength(50),
             Select::make('perusahaan')
                 ->searchable()
+                ->required()
                 ->options([
                     'Negeri' => 'Negeri',
                     'Swasta' => 'Swasta',
@@ -124,7 +127,9 @@ class AlumniResource extends Resource
                 ]),
             TextInput::make('ipk')
                 ->label('IPK')
+                ->required()
                 ->numeric()
+                ->disableAutocomplete()
                 ->hint('Contoh: 3.40')
                 ->nullable()
                 ->mask(
@@ -144,6 +149,7 @@ class AlumniResource extends Resource
                 ->required()
                 ->searchable(),
                 TextInput::make('judul_ta')
+                ->required()
                 ->columnSpanFull()
                 ->label('Judul TA'),
             ])->columns(2),

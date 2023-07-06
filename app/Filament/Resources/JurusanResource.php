@@ -46,6 +46,8 @@ class JurusanResource extends Resource
         return $table
             ->columns([
                 //
+                TextColumn::make('id_jurusan')
+                ->label('Kode Jurusan'),
                 TextColumn::make('nama_jurusan')
                     ->label('Nama Jurusan')
                     ->searchable(),

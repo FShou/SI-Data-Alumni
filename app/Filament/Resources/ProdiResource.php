@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -46,14 +47,17 @@ class ProdiResource extends Resource
                         $set('id_jurusan', $jurusan['id_jurusan']);
                     }
                 }),
-            TextInput::make('nama_prodi')
-                ->label('Nama Prodi')
-                ->maxLength(50)
-                ->required(),
             Select::make('id_jurusan')
                 ->label('Jurusan')
+                ->hint('Diambil dari Kode Prodi')
                 ->disabled()
+                ->required()
                 ->options(Jurusan::all()->pluck('nama_jurusan', 'id_jurusan')),
+            TextInput::make('nama_prodi')
+                ->label('Nama Prodi')
+                ->columnSpanFull()
+                ->maxLength(50)
+                ->required(),
         ]);
     }
 
@@ -62,13 +66,20 @@ class ProdiResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('nama_prodi')
-                ->label('Nama Prodi'),
+                ->label('Nama Prodi')
+                ->searchable(),
+
                 TextColumn::make('jurusan.nama_jurusan')
                 ->label('Jurusan')
+
 
             ])
             ->filters([
                 //
+                SelectFilter::make('jurusan')
+                    ->multiple()
+                    ->searchable()
+                    ->relationship('jurusan', 'nama_jurusan'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
