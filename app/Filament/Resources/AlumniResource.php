@@ -79,6 +79,16 @@ class AlumniResource extends Resource
                 ->disableAutocomplete()
                 ->required()
                 ->maxLength(50),
+            Select::make('id_jurusan')
+                ->label('Jurusan')
+                ->hint('Diambil dari Nim')
+                ->placeholder('-')
+                ->options(function (callable $get) {
+                    $jurusan = Jurusan::where('id_jurusan', 'like', ucfirst(substr($get('nim'), 0, 1)));
+                    return $jurusan->pluck('nama_jurusan', 'id_jurusan');
+                })
+                ->required()
+                ->disabled(),
             Select::make('id_prodi')
                 ->label('Prodi')
                 ->hint('Diambil dari Nim')
@@ -90,16 +100,6 @@ class AlumniResource extends Resource
                 ->required()
                 ->disabled(),
 
-            Select::make('id_jurusan')
-                ->label('Jurusan')
-                ->hint('Diambil dari Nim')
-                ->placeholder('-')
-                ->options(function (callable $get) {
-                    $jurusan = Jurusan::where('id_jurusan', 'like', ucfirst(substr($get('nim'), 0, 1)));
-                    return $jurusan->pluck('nama_jurusan', 'id_jurusan');
-                })
-                ->required()
-                ->disabled(),
             Select::make('gender')
                 ->searchable()
                 ->required()
@@ -174,6 +174,10 @@ class AlumniResource extends Resource
                         'Perempuan' => 'Perempuan',
                     ])
                     ->grow(false),
+                TextColumn::make('jurusan.nama_jurusan')
+                    ->label('Jurusan'),
+                TextColumn::make('prodi.nama_prodi')
+                   ->label('Prodi'),
                 TextColumn::make('perusahaan')
                     ->enum([
                         'Negeri' => 'Negeri',
@@ -193,10 +197,6 @@ class AlumniResource extends Resource
                     ->toggleable()
                     ->toggledHiddenByDefault(),
 
-                TextColumn::make('prodi.nama_prodi')
-                   ->label('Prodi'),
-                TextColumn::make('jurusan.nama_jurusan')
-                    ->label('Jurusan'),
 
                 TextColumn::make('angkatan.tahun_angkatan')->label('Angkatan'),
 

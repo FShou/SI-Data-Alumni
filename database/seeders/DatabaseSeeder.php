@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $user = \App\Models\User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'password' => 'adminadmin'
+            'password' => '123'
         ]);
         $admin = Role::create(['name'=>'Admin']);
         Role::create(['name'=>'Alumni']);

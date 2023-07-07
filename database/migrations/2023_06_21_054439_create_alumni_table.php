@@ -12,22 +12,42 @@ return new class extends Migration {
     {
         Schema::create('alumni', function (Blueprint $table) {
             $table->id();
-            $table->char("nim",10)->unique();
-            $table->string('nama_alumni',50);
-            $table->enum('gender',["Laki-laki","Perempuan"])->nullable();
-            $table->enum('perusahaan',["Negeri","Swasta","Tidak Bekerja"])->nullable();
-            $table->double('ipk',3,2)->nullable();
+            $table->char('nim', 10)->unique();
+            $table->string('nama_alumni', 50);
+            $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->enum('perusahaan', ['Negeri', 'Swasta', 'Tidak Bekerja'])->nullable();
+            $table->double('ipk', 3, 2)->nullable();
             $table->text('judul_ta')->nullable();
-            $table->string("email_alumni",50)->nullable();
-            $table->string("foto")->nullable();
-            $table->char("id_prodi",3)->index();
-            $table->foreign("id_prodi")->references("id_prodi")->on("prodi");
-            $table->char("id_jurusan",1);
-            $table->foreign("id_jurusan")->references("id_jurusan")->on("jurusan");
-            $table->foreignId("id_angkatan");
-            $table->foreign("id_angkatan")->references("id")->on("angkatan");
+            $table->string('email_alumni', 50)->nullable();
+            $table->string('foto')->nullable();
+            $table->char('id_prodi', 3)->index();
+            $table
+                ->foreign('id_prodi')
+                ->references('id_prodi')
+                ->on('prodi')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->char('id_jurusan', 1);
+            $table
+                ->foreign('id_jurusan')
+                ->references('id_jurusan')
+                ->on('jurusan')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('id_angkatan');
+            $table
+                ->foreign('id_angkatan')
+                ->references('id')
+                ->on('angkatan')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('id_user')->nullable();
-            $table->foreign('id_user')->references('id')->on('users');
+            $table
+                ->foreign('id_user')
+                ->references('id')
+                ->on('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             // $table->foreignId("id_narahubung")->nullable();
             // $table->foreign("id_narahubung")->references("id")->on("narahubung");

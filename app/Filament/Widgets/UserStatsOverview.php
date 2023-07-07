@@ -13,7 +13,7 @@ class UserStatsOverview extends BaseWidget
         $post = Post::where('id_user', 'like', auth()->id())->count();
         return [
             //
-            Card::make('Total Post', $post),
+            Card::make('Total Post', $post)->icon('heroicon-o-collection'),
         ];
     }
     public static function canView(): bool

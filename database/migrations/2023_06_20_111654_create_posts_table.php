@@ -16,8 +16,10 @@ return new class extends Migration {
             $table
                 ->foreign('id_user')
                 ->references('id')
-                ->on('users');
-            $table->string('judul_post');
+                ->on('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->string('judul_post')->unique();
             $table->text('isi');
             $table->string('foto_post');
             $table->boolean('approved')->default(0);

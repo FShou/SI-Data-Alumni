@@ -13,11 +13,12 @@ class StatsOverview extends BaseWidget
     protected function getCards(): array
     {
         $alumni = Alumni::all()->count();
-        $post = Post::where('approved','=','0')->count();
+        $post = Post::where('approved', '=', '0')->count();
         return [
             //
-            Card::make('Total Alumni', $alumni),
-            Card::make('Post Baru', $post),
+            Card::make('Total Alumni', $alumni)->icon('heroicon-o-academic-cap'),
+
+            Card::make('Post Baru', $post)->icon('heroicon-o-collection'),
         ];
     }
     public static function canView(): bool

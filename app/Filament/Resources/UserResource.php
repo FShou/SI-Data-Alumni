@@ -86,7 +86,7 @@ class UserResource extends Resource
                 //
             ])
             ->actions([Tables\Actions\EditAction::make(), Tables\Actions\DeleteAction::make()])
-            ->bulkActions([Tables\Actions\DeleteBulkAction::make()]);
+            ->bulkActions([]);
     }
 
     public static function getEloquentQuery(): Builder
@@ -105,8 +105,8 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'create' => Pages\CreateUser::route('/buat'),
+            'edit' => Pages\EditUser::route('/{record}/ubah'),
         ];
     }
 }

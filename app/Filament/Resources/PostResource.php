@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
+use App\Filament\Resources\PostResource\Pages\CreatePost;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
@@ -11,6 +12,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -43,7 +45,7 @@ class PostResource extends Resource
                     // ...
                     TextInput::make('judul_post')
                         ->label('Judul Post')
-                        ->unique()
+                        // ->unique()
                         ->required()
                         ->maxLength(255),
                     Forms\Components\Textarea::make('isi')
@@ -83,7 +85,11 @@ class PostResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([Tables\Actions\EditAction::make()])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+
+            ])
             ->bulkActions([]);
     }
 
@@ -102,8 +108,8 @@ class PostResource extends Resource
     {
         return [
             'index' => Pages\ListPosts::route('/'),
-            'create' => Pages\CreatePost::route('/create'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            'create' => Pages\CreatePost::route('/buat'),
+            'edit' => Pages\EditPost::route('/{record}/ubah'),
         ];
     }
 }
