@@ -43,6 +43,7 @@ class AlumniResource extends Resource
             Card::make()->schema([
 
             FileUpload::make('foto')
+                ->required()
                 ->image()
                 // ->maxSize(2048)
                 // ->panelAspectRatio('3:1')
@@ -74,9 +75,16 @@ class AlumniResource extends Resource
                         $set('id_prodi', $prodi['id_prodi']);
                     }
                 }),
+            TextInput::make('nisn')
+                ->label('NISN')
+                ->regex('/^[0-9]{10}$/')
+                ->unique()
+                ->required()
+                ->maxLength(10),
             TextInput::make('nama_alumni')
                 ->label('Nama Alumni')
                 ->disableAutocomplete()
+                ->columnSpanFull()
                 ->required()
                 ->maxLength(50),
             Select::make('id_jurusan')

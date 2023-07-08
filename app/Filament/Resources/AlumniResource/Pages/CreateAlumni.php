@@ -18,8 +18,8 @@ class CreateAlumni extends CreateRecord
             $user = User::factory()
                 ->create([
                     'name' => $data['nama_alumni'],
-                    'email' => $data['email_alumni'],
-                    'password' => $data['nim'],
+                    'email' => $data['nim']."@alumni.com",
+                    'password' => $data['nisn'],
                 ])
                 ->assignRole('Alumni');
                 $user->toArray();
