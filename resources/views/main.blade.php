@@ -117,9 +117,9 @@ head>
                         </div>
                     </div>
                 </div>
-                <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus doloremque tempore architecto veritatis possimus tempora cupiditate quos! Esse quidem culpa temporibus ullam quam rerum, consequatur omnis et accusamus error?</div>
-                <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus doloremque tempore architecto veritatis possimus tempora cupiditate quos! Esse quidem culpa temporibus ullam quam rerum, consequatur omnis et accusamus error?</div>
-                <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis accusamus doloremque tempore architecto veritatis possimus tempora cupiditate quos! Esse quidem culpa temporibus ullam quam rerum, consequatur omnis et accusamus error?</div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
             </div>
         </div>
         <div class="copyright container-fluid text-center bg-dark text-white mt-5">

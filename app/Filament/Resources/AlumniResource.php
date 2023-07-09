@@ -6,6 +6,7 @@ use App\Filament\Resources\AlumniResource\Pages;
 use App\Models\Alumni;
 use App\Models\Angkatan;
 use App\Models\Jurusan;
+use App\Models\Narahubung;
 use App\Models\Prodi;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -24,6 +25,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Foundation\Auth\User;
 
 class AlumniResource extends Resource
 {
@@ -239,6 +241,10 @@ class AlumniResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
+                    ->before(function ($record) {
+                        User::find($record->id_user)->delete();           
+                        Narahubung::where('email_narahubung','=',$record->email_alumni)->delete();
+                    })
             ])
             ->bulkActions([]);
     }

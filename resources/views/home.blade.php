@@ -1,3 +1,20 @@
+@php
+    use Carbon\Carbon; 
+
+    $totalAlumni = count($alumni); // Total jumlah alumni
+
+    $negeriCount = $alumni->where('perusahaan', 'Negeri')->count(); // Jumlah alumni dengan pekerjaan 'Negeri'
+    $swastaCount = $alumni->where('perusahaan', 'Swasta')->count(); // Jumlah alumni dengan pekerjaan 'Swasta'
+
+    if ($totalAlumni !== 0) {
+        $negeriPercentage = ($negeriCount / $totalAlumni) * 100;
+        $swastaPercentage = ($swastaCount / $totalAlumni) * 100;
+    } else {
+        $negeriPercentage = 0;
+        $swastaPercentage = 0;
+    }
+@endphp
+
 @extends('main')
 
 @section('body')
@@ -33,17 +50,22 @@
                                             class="shadow" style="height: 35vh; width:20vw; border-radius: 15px;">
                                     </div>
                                     <div class="body-post col" style="margin-left: 10px;">
-                                        <h4 class="fw-bold">{{ $post->judul_post }}</h4>
-                                <h6>
-                                    by: {{ $post->user->name }} -
-                                    {{$post->user->alumni->prodi->nama_prodi}}
-                                    {{$post->user->alumni->angkatan->tahun_angkatan}}
-                                </h6>
-                                        <div class="isi text-justify" style="height: 15vh">
+                                        <h4 class="fw-bold mb-2">{{ $post->judul_post }}</h4>
+                                        <h6 class="fst-italic mb-2">
+                                            Diposting pada {{ \Carbon\Carbon::parse($post->created_at)->format('j F Y') }} oleh {{ Str::limit($post->user->name, 20) }}
+                                            {{ ($post->user->name === "Admin") ? "" : "- ".$post->user->alumni->prodi->nama_prodi }}
+                                            {{ ($post->user->name === "Admin") ? "" : $post->user->alumni->angkatan->tahun_angkatan }}
+                                        </h6>
+                                        <div class="d-flex align-items-center my-2">
+                                            <div class="border d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
+                                                <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
+                                            </div>                                 
+                                        </div>                                                                           
+                                        <div class="isi text-justify" style="height: 5vh">
                                             <p>{{ Str::limit($post->isi, 297) }}
                                             </p>
                                         </div>
-                                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal-{{ $post->id }}">Detail</button>
                                     </div>
                                 </div>
@@ -62,10 +84,19 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body overflow-y-scroll" style="height: 65vh;">
+                                        <p class="fw-bold fst-italic mb-2">
+                                            Diposting pada {{ \Carbon\Carbon::parse($post->created_at)->format('j F Y') }} oleh {{ $post->user->name }}
+                                            {{ ($post->user->name === "Admin") ? "" : "- ".$post->user->alumni->prodi->nama_prodi }}
+                                            {{ ($post->user->name === "Admin") ? "" : $post->user->alumni->angkatan->tahun_angkatan }}
+                                        </p>
+                                        <div class="d-flex align-items-center my-2">
+                                            <div class="border d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
+                                                <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
+                                            </div>                                 
+                                        </div>   
                                         <img src="/storage/{{ $post->foto_post }}" alt="{{ $post->judul_post }}"
                                             style="width:100%;">
-                                        <p class="fw-bold">by : {{ $post->user->name }}</p>
-                                        <p class="text-justify">{{ $post->isi }}</p>
+                                        <p class="text-justify mt-3">{{ $post->isi }}</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -94,6 +125,7 @@
 
     {{-- MAIN --}}
     <main class="container-fluid" style="padding-top: 10vh">
+
         <h4 class="subtitle-header text-center mb-5" id="data-alumni">Data Alumni</h4>
 
         <!-- CARD -->
@@ -180,21 +212,6 @@
                             </div>
                             <div class="value-card container" style="height:70px;">
                                 <div class="row align-items-end h-100 pb-2">
-                                    <?php
-                                    $totalAlumni = count($alumni); // Total jumlah alumni
-
-                                    $negeriCount = $alumni->where('perusahaan', 'Negeri')->count(); // Jumlah alumni dengan pekerjaan 'Negeri'
-                                    $swastaCount = $alumni->where('perusahaan', 'Swasta')->count(); // Jumlah alumni dengan pekerjaan 'Swasta'
-
-                                    if ($totalAlumni !== 0) {
-                                        $negeriPercentage = ($negeriCount / $totalAlumni) * 100;
-                                        $swastaPercentage = ($swastaCount / $totalAlumni) * 100;
-                                    } else {
-                                        $negeriPercentage = 0;
-                                        $swastaPercentage = 0;
-                                    }
-
-                                    ?>
                                     <div class="col d-flex align-items-center fw-bold">
                                         <p class="card-text">Negeri: {{ number_format($negeriPercentage, 2) }}%</p>
                                     </div>
@@ -214,12 +231,14 @@
         </div>
         <!-- END CARD -->
 
+
         <!-- Tabel Data Alumni -->
         <div class="container" style="margin-top: 10vh">
             <div class="row">
                 <div class="col">
                     <div class="card shadow">
                         <div class="card-body">
+                            <h5 class="subtitle-header text-center mt-3 mb-4" id="data-alumni">Tabel Data Alumni</h5>
                             <table id="alumni" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -260,41 +279,27 @@
         </div>
         <!-- End Tabel Data Alumni -->
 
-        <!-- Tabel Data Narahubung -->
-        <div class="container" style="margin-top: 10vh">
+         <!-- Tabel Data Narahubung -->
+         <div class="container" style="margin-top: 10vh">
             <div class="row">
                 <div class="col">
                     <div class="card shadow">
                         <div class="card-body">
-                            <table id="alumni" class="table table-striped">
+                            <h5 class="subtitle-header text-center mt-3 mb-4" id="data-alumni">Tabel Data Narahubung</h5>
+                            <table id="narahubung" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Foto</th>
+                                        <th>Tahung Angkatan</th>
                                         <th>Nama</th>
-                                        <th>NIM</th>
                                         <th>Email</th>
-                                        <th>Jurusan</th>
-                                        <th>Program Studi</th>
-                                        <th>Tahun Angkatan</th>
-                                        <th>Judul TA</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($alumni as $alumnus)
+                                    @foreach ($narahubung as $nh)
                                         <tr>
-                                            <td>
-                                                <img src="/storage/{{ $alumnus->foto }}" alt="" width="80px"
-                                                    height="107px" class="ms-auto" style="border-radius: 9px;">
-                                            </td>
-                                            <td style="vertical-align: middle">{{ $alumnus->nama_alumni }}</td>
-                                            <td style="vertical-align: middle">{{ $alumnus->nim }}</td>
-                                            <td style="vertical-align: middle">{{ $alumnus->email_alumni }}</td>
-                                            <td style="vertical-align: middle">{{ $alumnus->jurusan->nama_jurusan }}
-                                            </td>
-                                            <td style="vertical-align: middle">{{ $alumnus->prodi->nama_prodi }}</td>
-                                            <td style="vertical-align: middle">{{ $alumnus->angkatan->tahun_angkatan }}
-                                            </td>
-                                            <td style="vertical-align: middle">{{ $alumnus->judul_ta }}</td>
+                                            <td style="vertical-align: middle">{{ $nh->angkatan->tahun_angkatan }}</td>
+                                            <td style="vertical-align: middle">{{ $nh->nama_narahubung }}</td>
+                                            <td style="vertical-align: middle"><a href="mailto:{{ $nh->email_narahubung }}" target="_blank">{{ $nh->email_narahubung }}</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

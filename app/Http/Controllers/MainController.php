@@ -14,13 +14,15 @@ class MainController extends Controller
     {
         return view('home', [
             "title" => "Home | SI Data Alumni",
+            "posts" => Post::where('approved', true)->latest()->take(5)->get(),
             "alumni" => Alumni::join('angkatan', 'alumni.id_angkatan', '=', 'angkatan.id')
                         ->orderBy('tahun_angkatan', 'desc')
                         ->orderBy('id_prodi', 'desc')
                         ->orderBy('nim', 'asc')
                         ->get(),
-            // "narahubung" => Narahubung::all()->orderBy('tahun_'),
-            "posts" => Post::where('approved', true)->latest()->take(5)->get()
+            "narahubung" => Narahubung::join('angkatan', 'narahubung.id_angkatan', '=', 'angkatan.id')
+                        ->orderBy('tahun_angkatan', 'desc')
+                        ->get()
         ]);
     }
 
@@ -36,13 +38,6 @@ class MainController extends Controller
     {
         return view('team', [
             "title" => "Team | SI Data Alumni"
-        ]);
-    }
-
-    public function test()
-    {
-        return view('test', [
-            "posts" => Post::where('approved', true)->latest()->take(5)->get()
         ]);
     }
 }
