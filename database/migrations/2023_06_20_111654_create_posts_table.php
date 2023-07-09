@@ -21,6 +21,7 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('judul_post')->unique();
             $table->text('isi');
+            $table->enum('kategori',['Event','Feedback','Loker']);
             $table->string('foto_post');
             $table->boolean('approved')->default(0);
             $table->timestamps();

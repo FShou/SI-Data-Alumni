@@ -1,8 +1,7 @@
 @extends('main')
 
 @section('body')
-    <
-main class="container mb-5 mt-3">
+<main class="container mb-5 mt-3">
         <div class="title-page text-center mb-3">
             <h1>Berita</h1>
         </div>

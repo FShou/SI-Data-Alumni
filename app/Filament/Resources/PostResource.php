@@ -9,6 +9,7 @@ use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
@@ -48,6 +49,15 @@ class PostResource extends Resource
                         // ->unique()
                         ->required()
                         ->maxLength(255),
+                    Select::make('kategori')
+
+                ->required()
+                ->searchable()
+                ->options([
+                    'Event' => 'Event',
+                    'Feedback' => 'Feedback',
+                    'Loker' => 'Loker'
+                ]),
                     Forms\Components\Textarea::make('isi')
                         ->required()
                         ->rows(15)
