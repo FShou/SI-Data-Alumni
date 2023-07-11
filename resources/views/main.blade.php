@@ -66,7 +66,7 @@ head>
                     <div class="logo-poliban text-center">
                         <img src="img/logo-poliban-transparan.png" alt="" height="150px" class="img-fluid m-auto">
                     </div>
-                    <div class="contact mt-3">
+                    <div class="contact mt-5">
                         <div class="row mb-0">
                             <div class="col-1">
                                 <i class="fas fa-location-arrow text-danger"></i>
