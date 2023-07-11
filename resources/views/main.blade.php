@@ -95,31 +95,69 @@ head>
                     <div class="sosmed container mt-3">
                         <div class="row">
                             <div class="col-3">
-                                <div class="icon" style="background-color: #3b5998;">
-                                    <i class="fab fa-facebook text-light"></i>
-                                </div>
+                                <a href="https://www.facebook.com/poliban.ac.id" target="_blank">
+                                    <div class="icon" style="background-color: #3b5998;">
+                                        <i class="fab fa-facebook text-light"></i>
+                                    </div>
+                                </a>
                             </div>
                             <div class="col-3">
-                                <div class="icon" style="background-color: #1da1f2;">
-                                    <i class="fab fa-twitter text-light"></i>
-                                </div>
+                                <a href="https://twitter.com/humaspoliban" target="_blank">
+                                    <div class="icon" style="background-color: #1da1f2;">
+                                        <i class="fab fa-twitter text-light"></i>
+                                    </div>
+                                </a>
                             </div>
                             <div class="col-3">
-                                <div class="icon" style="background-color: #cc11a6;">
-                                    <i class="fab fa-instagram text-light"></i>
-                                </div>
+                                <a href="https://www.instagram.com/poliban_official/" target="_blank">
+                                    <div class="icon" style="background-color: #cc11a6;">
+                                        <i class="fab fa-instagram text-light"></i>
+                                    </div>
+                                </a>
                             </div>
                             <div class="col-3">
-                                <div class="icon" style="background-color: #cd201f;">
-                                    <i class="fab fa-youtube text-light"></i>
-                                </div>
+                                <a href="https://www.youtube.com/channel/UC5CfzvUTqEUPXhwwSLvP53Q" target="_blank">
+                                    <div class="icon" style="background-color: #cd201f;">
+                                        <i class="fab fa-youtube text-light"></i>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col"></div>
-                <div class="col"></div>
-                <div class="col"></div>
+                <div class="col">
+                    <div class="title">
+                        <h6>UNIT</h6>
+                    </div>
+                    <ul>
+                        <li><a href="tik.poliban.ac.id" target="_blank">UPT TIK</a></li>
+                        <li><a href="poliban.ac.id" target="_blank">P3M</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <div class="title">
+                        <h6>INFORMASI</h6>
+                    </div>
+                    <ul>
+                        <li><a href="simpadu.poliban.ac.id" target="_blank">SIMPADU</a></li>
+                        <li><a href="elearning.poliban.ac.id" target="_blank">E-Learning</a></li>
+                        <li><a href="porseni.poliban.ac.id" target="_blank">PORSENI 2022</a></li>
+                        <li><a href="sipma.poliban.ac.id/publik" target="_blank">Sistem Informasi Penelitian dan Pengabdian Kepada Masyarakat</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <div class="title">
+                        <h6>LAYANAN</h6>
+                    </div>
+                    <ul>
+                        <li><a href="poliban.ac.id" target="_blank">SIPMA</a></li>
+                        <li><a href="ejurnal.poliban.ac.id" target="_blank">E-JURNAL</a></li>
+                        <li><a href="sijari.poliban.ac.id/Auth" target="_blank">Sistem Informasi Kinerja Riset</a></li>
+                        <li><a href="repository.poliban.ac.id" target="_blank">Repository</a></li>
+                        <li><a href="e-prosiding.poliban.ac.id" target="_blank">E-Proceding</a></li>
+                        <li><a href="press.poliban.ac.id" target="_blank">Poliban Press</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="copyright container-fluid text-center bg-dark text-white mt-5">

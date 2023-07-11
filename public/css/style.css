@@ -12,10 +12,8 @@ body {
 header{
     background-image: url(/img/bg-poliban.jpg);
     height: 101vh;
-    /* height: 80vh; */
     background-size: cover;
     background-position: center;
-    /* border-radius: 9px; */
     margin-top: -10vh;
     padding-top: 10vh;
 }
@@ -79,4 +77,32 @@ nav .navbar-brand{
 .anggota h5 {
     margin-top: 24px;
     margin-bottom: 0;
+}
+
+/* Footer */
+
+footer a .icon {
+    transition: opacity 0.3s ease;
+  }
+
+footer a .icon:hover {
+    opacity: 0.8;
+}
+
+footer a:hover{
+    text-decoration: none;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+}
+
+footer ul li a {
+    color: #6c757d;
+}
+
+footer ul li a:hover {
+    color: rgb(181, 0, 0);
 }

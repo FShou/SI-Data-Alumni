@@ -29,7 +29,7 @@
                                 </h6>
                             </div>
                             <div class="d-flex align-items-center my-2">
-                                <div class="border d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
+                                <div class="d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
                                     <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
                                 </div>                                 
                             </div>  
@@ -58,7 +58,7 @@
                                     {{ ($post->user->name === "Admin") ? "" : $post->user->alumni->angkatan->tahun_angkatan }}
                                 </p>
                                 <div class="d-flex align-items-center my-2">
-                                    <div class="border d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
+                                    <div class="d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
                                         <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
                                     </div>                                 
                                 </div>  

@@ -42,7 +42,6 @@
                 <div class="carousel-inner container bg-opacity-25 pt-4" style="border-radius: 16px;">
                     @foreach ($posts as $key => $post)
                         <div class="carousel-item{{ $loop->first ? ' active' : '' }}">
-                            {{-- @dd($post) --}}
                             <div style="margin-left: 2%; height: 40vh; width: 97%;">
                                 <div class="container d-flex">
                                     <div class="gambar-post col-3">
@@ -57,7 +56,7 @@
                                             {{ ($post->user->name === "Admin") ? "" : $post->user->alumni->angkatan->tahun_angkatan }}
                                         </h6>
                                         <div class="d-flex align-items-center my-2">
-                                            <div class="border d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
+                                            <div class="d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
                                                 <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
                                             </div>                                 
                                         </div>                                                                           
@@ -90,7 +89,7 @@
                                             {{ ($post->user->name === "Admin") ? "" : $post->user->alumni->angkatan->tahun_angkatan }}
                                         </p>
                                         <div class="d-flex align-items-center my-2">
-                                            <div class="border d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
+                                            <div class="d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
                                                 <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
                                             </div>                                 
                                         </div>   
