@@ -22,7 +22,7 @@
     <header>
 
         <!-- TITLE HEADER -->
-        <div class="title-header text-center text-light">
+        <div class="title-header text-center text-light ms-auto">
             <h1 class="subtitle-header">Sistem Informasi Data Alumni</h1>
             <h2 class="subtitle-header">Politeknik Negeri Banjarmasin</h2>
         </div>
@@ -42,13 +42,13 @@
                 <div class="carousel-inner container bg-opacity-25 pt-4" style="border-radius: 16px;">
                     @foreach ($posts as $key => $post)
                         <div class="carousel-item{{ $loop->first ? ' active' : '' }}">
-                            <div style="margin-left: 2%; height: 40vh; width: 97%;">
+                            <div style="margin-left: 3vw; height: 40vh; width: 97%;">
                                 <div class="container d-flex">
-                                    <div class="gambar-post col-3">
+                                    <div class="gambar-post">
                                         <img src="/storage/{{ $post->foto_post }}" alt="{{ $post->judul_post }}"
                                             class="shadow" style="height: 35vh; width:20vw; border-radius: 15px;">
                                     </div>
-                                    <div class="body-post col" style="margin-left: 10px;">
+                                    <div class="body-post col-lg-8 col-md-4">
                                         <h4 class="fw-bold mb-2">{{ $post->judul_post }}</h4>
                                         <h6 class="fst-italic mb-2">
                                             Diposting pada {{ \Carbon\Carbon::parse($post->created_at)->format('j F Y') }} oleh {{ Str::limit($post->user->name, 20) }}
@@ -61,7 +61,7 @@
                                             </div>                                 
                                         </div>                                                                           
                                         <div class="isi text-justify" style="height: 5vh">
-                                            <p>{{ Str::limit($post->isi, 297) }}
+                                            <p>{{ Str::limit($post->isi, 150) }}
                                             </p>
                                         </div>
                                         <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal"
