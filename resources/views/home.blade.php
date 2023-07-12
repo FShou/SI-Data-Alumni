@@ -194,13 +194,13 @@
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-center mb-lg-0 mb-md-1">
                                         <h5 class="card-text">{{ $alumni->where('gender', 'Laki-laki')->count() }}</h5>
                                     </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-start mb-lg-0 mb-md-1">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-center mb-lg-0 mb-md-1">
                                         <i class="fas fa-male"></i>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-center mb-lg-0">
                                         <h5 class="card-text">{{ $alumni->where('gender', 'Perempuan')->count() }}</h5>
                                     </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-start mb-lg-0">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-center mb-lg-0">
                                         <i class="fas fa-female"></i>
                                     </div>
                                 </div>
