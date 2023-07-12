@@ -26,7 +26,7 @@ head>
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {{ ($title === "Berita | SI Data Alumni") ? 'active fw-bold' : '' }}" href="/posts">Berita</a>
                     </li>
@@ -62,7 +62,7 @@ head>
     <footer>
         <div class="informasi container mt-5 py-3">
             <div class="row">
-                <div class="col">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-lg-1 mb-5">
                     <div class="logo-poliban text-center">
                         <img src="img/logo-poliban-transparan.png" alt="" height="150px" class="img-fluid m-auto">
                     </div>
@@ -125,7 +125,7 @@ head>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-lg-1 mb-5">
                     <div class="title">
                         <h6>UNIT</h6>
                     </div>
@@ -134,7 +134,7 @@ head>
                         <li><a href="poliban.ac.id" target="_blank">P3M</a></li>
                     </ul>
                 </div>
-                <div class="col">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-lg-1 mb-5">
                     <div class="title">
                         <h6>INFORMASI</h6>
                     </div>
@@ -145,7 +145,7 @@ head>
                         <li><a href="sipma.poliban.ac.id/publik" target="_blank">Sistem Informasi Penelitian dan Pengabdian Kepada Masyarakat</a></li>
                     </ul>
                 </div>
-                <div class="col">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-lg-1 mb-5">
                     <div class="title">
                         <h6>LAYANAN</h6>
                     </div>

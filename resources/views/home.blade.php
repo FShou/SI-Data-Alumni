@@ -23,13 +23,13 @@
 
         <!-- TITLE HEADER -->
         <div class="title-header text-center text-light ms-auto">
-            <h1 class="subtitle-header">Sistem Informasi Data Alumni</h1>
-            <h2 class="subtitle-header">Politeknik Negeri Banjarmasin</h2>
+            <h3 class="subtitle-header">Sistem Informasi Data Alumni</h3>
+            <h4 class="subtitle-header">Politeknik Negeri Banjarmasin</h4>
         </div>
         <!-- END TITLE HEADER -->
 
         <!-- BERITA -->
-        <div class="berita text-light">
+        <div class="container berita text-light pb-5">
             <div id="carouselExampleIndicators" class="carousel slide">
                 <div class="carousel-indicators mb-0">
                     @foreach ($posts as $key => $post)
@@ -39,16 +39,46 @@
                             aria-label="Slide {{ $key + 1 }}"></button>
                     @endforeach
                 </div>
-                <div class="carousel-inner container bg-opacity-25 pt-4" style="border-radius: 16px;">
+                <div class="carousel-inner bg-opacity-25 py-4" style="border-radius: 16px;">
                     @foreach ($posts as $key => $post)
                         <div class="carousel-item{{ $loop->first ? ' active' : '' }}">
-                            <div style="margin-left: 3vw; height: 40vh; width: 97%;">
-                                <div class="container d-flex">
+                            <div class="container mx-lg-5 mx-sm-2">
+                                <div class="row">
+                                    <div class="col-lg-4 mb-lg-0 mb-2">
+                                        <div class="gambar-post d-flex justify-content-center">
+                                            <img src="/storage/{{ $post->foto_post }}" alt="{{ $post->judul_post }}"
+                                                class="shadow img-fluid" style="height: 35vh; border-radius: 15px; max-width: 100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 mx-lg-0 mx-md-3 mx-sm-1">
+                                        <div class="body-post">
+                                            <h4 class="fw-bold mb-2">{{ $post->judul_post }}</h4>
+                                            <h6 class="fst-italic mb-2">
+                                                Diposting pada {{ \Carbon\Carbon::parse($post->created_at)->format('j F Y') }} oleh {{ Str::limit($post->user->name, 20) }}
+                                                {{ ($post->user->name === "Admin") ? "" : "- ".$post->user->alumni->prodi->nama_prodi }}
+                                                {{ ($post->user->name === "Admin") ? "" : $post->user->alumni->angkatan->tahun_angkatan }}
+                                            </h6>
+                                            <div class="d-flex align-items-center my-2">
+                                                <div class="d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
+                                                    <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
+                                                </div>                                 
+                                            </div>                                                                           
+                                            <div class="isi text-justify overflow-y-hidden" style="height: 10vh;">
+                                                <p>{{ $post->isi }}</p>
+                                            </div>
+                                            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal-{{ $post->id }}">Detail</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div style="margin-left: 3vw; height: 40vh; width: 97%;">
+                                <div class="container d-flex col-lg">
                                     <div class="gambar-post">
                                         <img src="/storage/{{ $post->foto_post }}" alt="{{ $post->judul_post }}"
-                                            class="shadow" style="height: 35vh; width:20vw; border-radius: 15px;">
+                                            class="shadow img-fluid" style="height: 35vh; width:20vw; border-radius: 15px;">
                                     </div>
-                                    <div class="body-post col-lg-8 col-md-4">
+                                    <div class="body-post col-lg-8">
                                         <h4 class="fw-bold mb-2">{{ $post->judul_post }}</h4>
                                         <h6 class="fst-italic mb-2">
                                             Diposting pada {{ \Carbon\Carbon::parse($post->created_at)->format('j F Y') }} oleh {{ Str::limit($post->user->name, 20) }}
@@ -68,7 +98,7 @@
                                             data-bs-target="#exampleModal-{{ $post->id }}">Detail</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
                         {{-- Modal --}}
@@ -105,17 +135,17 @@
                         </div>
                         {{-- END MODAL --}}
                     @endforeach
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev" style="width: 5%;">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next" style="width: 5%;">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </div>
         <!-- END BERITA -->
@@ -131,9 +161,9 @@
         <div class="container">
             <div class="row">
                 <!-- Jumlah Alumni -->
-                <div class="col mb-3 mb-sm-0">
-                    <div class="card shadow" style="height: 150px; border-radius: 16px;">
-                        <div class="card-body">
+                <div class="col-lg col-md-6 col-sm-12 mb-3 mb-sm-0 my-2">
+                    <div class="card shadow" style="border-radius: 16px;">
+                        <div class="card-body" style="min-height: 150px;">
                             <div class="title-card pt-2">
                                 <p class="card-title">Jumlah Alumni</p>
                             </div>
@@ -142,7 +172,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <h4 class="card-text">{{ $alumni->count() }}</h4>
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-4">
                                         <i class="fas fa-user-graduate"></i>
                                     </div>
                                 </div>
@@ -153,24 +183,24 @@
                 <!-- End Jumlah Alumni -->
 
                 <!-- Jumlah Berdasarkan Gender -->
-                <div class="col">
-                    <div class="card shadow" style="height: 150px; border-radius: 16px;">
-                        <div class="card-body">
+                <div class="col-lg col-md-6 col-sm-12 mb-3 mb-sm-0 my-2">
+                    <div class="card shadow" style="border-radius: 16px;">
+                        <div class="card-body" style="min-height: 150px;">
                             <div class="title-card pt-2">
                                 <p class="card-title">Jumlah Alumni Berdasarkan Gender</p>
                             </div>
-                            <div class="value-card container" style="height:45px;">
+                            <div class="value-card container">
                                 <div class="row align-items-end h-100 pb-2">
-                                    <div class="col d-flex">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-center mb-lg-0 mb-md-1">
                                         <h5 class="card-text">{{ $alumni->where('gender', 'Laki-laki')->count() }}</h5>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-start mb-lg-0 mb-md-1">
                                         <i class="fas fa-male"></i>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-center mb-lg-0">
                                         <h5 class="card-text">{{ $alumni->where('gender', 'Perempuan')->count() }}</h5>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-start mb-lg-0">
                                         <i class="fas fa-female"></i>
                                     </div>
                                 </div>
@@ -181,18 +211,18 @@
                 <!-- END Jumlah Berdasarkan Gender -->
 
                 <!-- Rata-rata IPK -->
-                <div class="col">
-                    <div class="card shadow" style="height: 150px; border-radius: 16px;">
-                        <div class="card-body">
+                <div class="col-lg col-md-6 col-sm-12 mb-3 mb-sm-0 my-2">
+                    <div class="card shadow" style="border-radius: 16px;">
+                        <div class="card-body" style="min-height: 150px;">
                             <div class="title-card pt-2">
                                 <p class="card-title">Rata-rata IPK</p>
                             </div>
-                            <div class="value-card container text-center" style="height:70px;">
-                                <div class="row align-items-end h-100 pb-2">
+                            <div class="value-card container text-center">
+                                <div class="row align-items-end pb-2">
                                     <div class="col d-flex justify-content-center">
                                         <h4 class="card-text">{{ number_format($alumni->avg('ipk'), 2) }}</h4>
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-4">
                                         <i class="fas fa-book"></i>
                                     </div>
                                 </div>
@@ -203,21 +233,19 @@
                 <!-- END Rata-rata IPK -->
 
                 <!-- Pekerjaan -->
-                <div class="col-sm-4">
-                    <div class="card shadow" style="height: 150px; border-radius: 16px;">
-                        <div class="card-body">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-0 my-2">
+                    <div class="card shadow" style="border-radius: 16px;">
+                        <div class="card-body" style="min-height: 150px;">
                             <div class="title-card pt-2">
                                 <p class="card-title">Pekerjaan</p>
                             </div>
-                            <div class="value-card container" style="height:70px;">
-                                <div class="row align-items-end h-100 pb-2">
-                                    <div class="col d-flex align-items-center fw-bold">
-                                        <p class="card-text">Negeri: {{ number_format($negeriPercentage, 2) }}%</p>
-                                    </div>
+                            <div class="value-card container">
+                                <div class="row align-items-end pb-2">
                                     <div class="col fw-bold">
+                                        <p class="card-text mb-0">Negeri: {{ number_format($negeriPercentage, 2) }}%</p>
                                         <p class="card-text">Swasta: {{ number_format($swastaPercentage, 2) }}%</p>
                                     </div>
-                                    <div class="col-auto">
+                                    <div class="col-4">
                                         <i class="fas fa-briefcase"></i>
                                     </div>
                                 </div>
@@ -226,6 +254,7 @@
                     </div>
                 </div>
                 <!-- END Pekerjaan -->
+
             </div>
         </div>
         <!-- END CARD -->
@@ -238,39 +267,41 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <h5 class="subtitle-header text-center mt-3 mb-4" id="data-alumni">Tabel Data Alumni</h5>
-                            <table id="alumni" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Nama</th>
-                                        <th>NIM</th>
-                                        <th>Email</th>
-                                        <th>Jurusan</th>
-                                        <th>Program Studi</th>
-                                        <th>Tahun Angkatan</th>
-                                        <th>Judul TA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($alumni as $alumnus)
+                            <div class="table-responsive">
+                                <table id="alumni" class="table table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <img src="/storage/{{ $alumnus->foto }}" alt="" width="80px"
-                                                    height="107px" class="ms-auto" style="border-radius: 9px;">
-                                            </td>
-                                            <td style="vertical-align: middle">{{ $alumnus->nama_alumni }}</td>
-                                            <td style="vertical-align: middle">{{ $alumnus->nim }}</td>
-                                            <td style="vertical-align: middle">{{ $alumnus->email_alumni }}</td>
-                                            <td style="vertical-align: middle">{{ $alumnus->jurusan->nama_jurusan }}
-                                            </td>
-                                            <td style="vertical-align: middle">{{ $alumnus->prodi->nama_prodi }}</td>
-                                            <td style="vertical-align: middle">{{ $alumnus->angkatan->tahun_angkatan }}
-                                            </td>
-                                            <td style="vertical-align: middle">{{ $alumnus->judul_ta }}</td>
+                                            <th>Foto</th>
+                                            <th>Nama</th>
+                                            <th>NIM</th>
+                                            <th>Email</th>
+                                            <th>Jurusan</th>
+                                            <th>Program Studi</th>
+                                            <th>Tahun Angkatan</th>
+                                            <th>Judul TA</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($alumni as $alumnus)
+                                            <tr>
+                                                <td>
+                                                    <img src="/storage/{{ $alumnus->foto }}" alt="" width="80px"
+                                                        height="107px" class="ms-auto" style="border-radius: 9px;">
+                                                </td>
+                                                <td style="vertical-align: middle">{{ $alumnus->nama_alumni }}</td>
+                                                <td style="vertical-align: middle">{{ $alumnus->nim }}</td>
+                                                <td style="vertical-align: middle">{{ $alumnus->email_alumni }}</td>
+                                                <td style="vertical-align: middle">{{ $alumnus->jurusan->nama_jurusan }}
+                                                </td>
+                                                <td style="vertical-align: middle">{{ $alumnus->prodi->nama_prodi }}</td>
+                                                <td style="vertical-align: middle">{{ $alumnus->angkatan->tahun_angkatan }}
+                                                </td>
+                                                <td style="vertical-align: middle">{{ $alumnus->judul_ta }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -285,24 +316,26 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <h5 class="subtitle-header text-center mt-3 mb-4" id="data-alumni">Tabel Data Narahubung</h5>
-                            <table id="narahubung" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Tahung Angkatan</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($narahubung as $nh)
+                            <div class="table-responsive">
+                                <table id="narahubung" class="table table-striped">
+                                    <thead>
                                         <tr>
-                                            <td style="vertical-align: middle">{{ $nh->angkatan->tahun_angkatan }}</td>
-                                            <td style="vertical-align: middle">{{ $nh->nama_narahubung }}</td>
-                                            <td style="vertical-align: middle"><a href="mailto:{{ $nh->email_narahubung }}" target="_blank">{{ $nh->email_narahubung }}</a></td>
+                                            <th>Tahung Angkatan</th>
+                                            <th>Nama</th>
+                                            <th>Email</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($narahubung as $nh)
+                                            <tr>
+                                                <td style="vertical-align: middle">{{ $nh->angkatan->tahun_angkatan }}</td>
+                                                <td style="vertical-align: middle">{{ $nh->nama_narahubung }}</td>
+                                                <td style="vertical-align: middle"><a href="mailto:{{ $nh->email_narahubung }}" target="_blank">{{ $nh->email_narahubung }}</a></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

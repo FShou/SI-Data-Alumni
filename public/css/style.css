@@ -11,7 +11,7 @@ body {
 
 header{
     background-image: url(/img/bg-poliban.jpg);
-    height: 101vh;
+    min-height: 101vh;
     background-size: cover;
     background-position: center;
     margin-top: -10vh;
@@ -36,17 +36,6 @@ nav .navbar-brand{
 
 .subtitle-header {
     font-weight: bold;
-}
-
-.carousel-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-align: center;
-    position: relative;
-    z-index: 2;
 }
 
 /* Main */
