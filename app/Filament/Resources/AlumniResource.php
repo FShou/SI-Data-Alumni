@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AlumniResource\Pages;
+use App\Filament\Resources\AlumniResource\Pages\CreateAlumni;
 use App\Models\Alumni;
 use App\Models\Angkatan;
 use App\Models\Jurusan;
@@ -16,6 +17,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Form;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -80,7 +82,7 @@ class AlumniResource extends Resource
             TextInput::make('nisn')
                 ->label('NISN')
                 ->regex('/^[0-9]{10}$/')
-                ->unique()
+                ->unique(ignorable: fn ($record) => $record)
                 ->required()
                 ->maxLength(10),
             TextInput::make('nama_alumni')
@@ -242,7 +244,7 @@ class AlumniResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                     ->before(function ($record) {
-                        User::find($record->id_user)->delete();           
+                        User::find($record->id_user)->delete();
                         Narahubung::where('email_narahubung','=',$record->email_alumni)->delete();
                     })
             ])
