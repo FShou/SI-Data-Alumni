@@ -50,7 +50,7 @@
                                                 class="shadow img-fluid" style="height: 35vh; border-radius: 15px; max-width: 100%">
                                         </div>
                                     </div>
-                                    <div class="col-lg-7 col-11 mx-lg-0 mx-md-3 mx-sm-1">
+                                    <div class="col-lg-6 col-11 mx-lg-0 mx-md-3 mx-sm-1">
                                         <div class="body-post">
                                             <h4 class="fw-bold mb-2">{{ $post->judul_post }}</h4>
                                             <h6 class="fst-italic mb-2">
@@ -63,7 +63,7 @@
                                                     <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
                                                 </div>                                 
                                             </div>                                                                           
-                                            <div class="isi text-justify overflow-y-hidden" style="height: 10vh;">
+                                            <div class="isi text-justify overflow-y-hidden" style="height: 9vh;">
                                                 <p>{{ $post->isi }}</p>
                                             </div>
                                             <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
