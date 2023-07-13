@@ -58,6 +58,7 @@ class DatabaseSeeder extends Seeder
             'E02' => 'Manajemen Informatika',
             'E03' => 'Bisnis Digital'
         ];
+
         foreach ($jurusan as $k => $v){
             DB::table('jurusan')->insert([
                 'id_jurusan' => $k,
@@ -71,6 +72,7 @@ class DatabaseSeeder extends Seeder
                 'id_jurusan' => $k[0]
             ]);
         }
+
         for($angkatan = 2000; $angkatan < 2024; $angkatan++){
             DB::table('angkatan')->insert([
                 'tahun_angkatan' => $angkatan,

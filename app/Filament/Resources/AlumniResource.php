@@ -257,7 +257,7 @@ class AlumniResource extends Resource
         {
             return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
         }
-        return parent::getEloquentQuery();
+        return parent::getEloquentQuery()->latest();
     }
 
     public static function getPages(): array

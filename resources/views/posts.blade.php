@@ -1,5 +1,5 @@
 @php
-    use Carbon\Carbon; 
+    use Carbon\Carbon;
 @endphp
 
 @extends('main')
@@ -7,12 +7,12 @@
 @section('body')
 <main class="container mb-5 mt-3">
         <div class="title-page text-center mb-3">
-            <h1>Berita</h1>
+            <h2>Berita</h2>
         </div>
         <div class="row">
             @foreach ($posts as $post)
-                <div class="col-4 py-3">
-                    <div class="card" style="width: 28vw; height: 470px;">
+                <div class="col-lg-4 col-md-4 col-sm-12 py-3">
+                    <div class="card" style="height: 470px;">
                         <img src="/storage/{{ $post->foto_post }}" class="card-img-top" alt="{{ $post->judul_post }}"
                             width="28vw" height="200px">
                         <div class="card-body">
@@ -20,7 +20,7 @@
 
                             <div class="by" style="height: 40px;">
                                 <h6 class="card-text fst-italic mb-0">
-                                    {{ \Carbon\Carbon::parse($post->created_at)->format('j F Y') }} Oleh 
+                                    {{ \Carbon\Carbon::parse($post->created_at)->format('j F Y') }} Oleh
                                     {{ Str::limit($post->user->name, 20) }}
                                 </h6>
                                 <h6 class="card-text fst-italic mb-0">
@@ -31,9 +31,9 @@
                             <div class="d-flex align-items-center my-2">
                                 <div class="d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
                                     <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
-                                </div>                                 
-                            </div>  
-                            <p class="card-text text-justify" style="height: 70px;">{{ Str::limit($post->isi, 120) }}</p>
+                                </div>
+                            </div>
+                            <p class="card-text text-justify overflow-y-hidden" style="height: 65px;">{{ $post->isi }}</p>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal-{{ $post->id }}">Detail</button>
                         </div>
@@ -60,11 +60,13 @@
                                 <div class="d-flex align-items-center my-2">
                                     <div class="d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
                                         <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
-                                    </div>                                 
-                                </div>  
+                                    </div>
+                                </div>
                                 <img src="/storage/{{ $post->foto_post }}" alt="{{ $post->judul_post }}"
                                     style="width:100%;">
-                                <p class="text-justify mt-3">{{ $post->isi }}</p>
+                            @foreach (explode('<br>',nl2br($post->isi,false)) as $line)
+                        <p class="text-justify mt-3">{{ $line }}</p>
+                        @endforeach
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
