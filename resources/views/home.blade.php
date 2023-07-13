@@ -43,14 +43,14 @@
                     @foreach ($posts as $key => $post)
                         <div class="carousel-item{{ $loop->first ? ' active' : '' }}">
                             <div class="container mx-lg-5 mx-sm-2">
-                                <div class="row">
-                                    <div class="col-lg-4 mb-lg-0 mb-2">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-4 col-11 mb-lg-0 mb-2">
                                         <div class="gambar-post d-flex justify-content-center">
                                             <img src="/storage/{{ $post->foto_post }}" alt="{{ $post->judul_post }}"
                                                 class="shadow img-fluid" style="height: 35vh; border-radius: 15px; max-width: 100%">
                                         </div>
                                     </div>
-                                    <div class="col-lg-7 mx-lg-0 mx-md-3 mx-sm-1">
+                                    <div class="col-lg-7 col-11 mx-lg-0 mx-md-3 mx-sm-1">
                                         <div class="body-post">
                                             <h4 class="fw-bold mb-2">{{ $post->judul_post }}</h4>
                                             <h6 class="fst-italic mb-2">

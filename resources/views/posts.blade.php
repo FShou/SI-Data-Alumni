@@ -11,7 +11,7 @@
         </div>
         <div class="row">
             @foreach ($posts as $post)
-                <div class="col-lg-4 col-md-4 col-sm-12 py-3">
+                <div class="col-lg-4 col-md-6 col-sm-12 py-3">
                     <div class="card" style="height: 470px;">
                         <img src="/storage/{{ $post->foto_post }}" class="card-img-top" alt="{{ $post->judul_post }}"
                             width="28vw" height="200px">
