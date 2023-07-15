@@ -72,33 +72,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div style="margin-left: 3vw; height: 40vh; width: 97%;">
-                                <div class="container d-flex col-lg">
-                                    <div class="gambar-post">
-                                        <img src="/storage/{{ $post->foto_post }}" alt="{{ $post->judul_post }}"
-                                            class="shadow img-fluid" style="height: 35vh; width:20vw; border-radius: 15px;">
-                                    </div>
-                                    <div class="body-post col-lg-8">
-                                        <h4 class="fw-bold mb-2">{{ $post->judul_post }}</h4>
-                                        <h6 class="fst-italic mb-2">
-                                            Diposting pada {{ \Carbon\Carbon::parse($post->created_at)->format('j F Y') }} oleh {{ Str::limit($post->user->name, 20) }}
-                                            {{ ($post->user->name === "Admin") ? "" : "- ".$post->user->alumni->prodi->nama_prodi }}
-                                            {{ ($post->user->name === "Admin") ? "" : $post->user->alumni->angkatan->tahun_angkatan }}
-                                        </h6>
-                                        <div class="d-flex align-items-center my-2">
-                                            <div class="d-flex align-items-center @if($post->kategori === 'Event') bg-primary @elseif($post->kategori === 'Feedback') bg-success @elseif($post->kategori === 'Loker') bg-warning @endif" style="border-radius: 9px; height: 22px;">
-                                                <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
-                                            </div>                                 
-                                        </div>                                                                           
-                                        <div class="isi text-justify" style="height: 5vh">
-                                            <p>{{ Str::limit($post->isi, 150) }}
-                                            </p>
-                                        </div>
-                                        <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal-{{ $post->id }}">Detail</button>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
 
                         {{-- Modal --}}
@@ -320,7 +293,7 @@
                                 <table id="narahubung" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Tahung Angkatan</th>
+                                            <th>Tahun Angkatan</th>
                                             <th>Nama</th>
                                             <th>Email</th>
                                         </tr>
