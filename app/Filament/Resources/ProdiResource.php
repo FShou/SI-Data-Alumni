@@ -3,10 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProdiResource\Pages;
-use App\Filament\Resources\ProdiResource\RelationManagers;
 use App\Models\Jurusan;
 use App\Models\Prodi;
-use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -15,8 +13,6 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProdiResource extends Resource
 {
@@ -101,8 +97,6 @@ class ProdiResource extends Resource
     {
         return [
             'index' => Pages\ListProdis::route('/'),
-            // 'create' => Pages\CreateProdi::route('/buat'),
-            // 'edit' => Pages\EditProdi::route('/{record}/ubah'),
         ];
     }
 }

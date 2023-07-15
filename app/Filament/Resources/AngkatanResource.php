@@ -3,17 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AngkatanResource\Pages;
-use App\Filament\Resources\AngkatanResource\RelationManagers;
 use App\Models\Angkatan;
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AngkatanResource extends Resource
 {
@@ -55,7 +51,6 @@ class AngkatanResource extends Resource
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                // Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
@@ -70,8 +65,6 @@ class AngkatanResource extends Resource
     {
         return [
             'index' => Pages\ListAngkatans::route('/'),
-            // 'create' => Pages\CreateAngkatan::route('/buat'),
-            // 'edit' => Pages\EditAngkatan::route('/{record}/ubah'),
         ];
     }
 }

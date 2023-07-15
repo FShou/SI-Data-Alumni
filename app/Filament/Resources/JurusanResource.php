@@ -3,17 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\JurusanResource\Pages;
-use App\Filament\Resources\JurusanResource\RelationManagers;
 use App\Models\Jurusan;
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class JurusanResource extends Resource
 {
@@ -60,7 +56,6 @@ class JurusanResource extends Resource
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                // Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
@@ -75,8 +70,6 @@ class JurusanResource extends Resource
     {
         return [
             'index' => Pages\ListJurusans::route('/'),
-            // 'create' => Pages\CreateJurusan::route('/buat'),
-            // 'edit' => Pages\EditJurusan::route('/{record}/ubah'),
         ];
     }
 }

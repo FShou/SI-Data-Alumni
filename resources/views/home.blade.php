@@ -63,7 +63,7 @@
                                                     <h6 class="p-2 mt-1 text-light">{{ $post->kategori }}</h6>
                                                 </div>                                 
                                             </div>                                                                           
-                                            <div class="isi text-justify overflow-y-hidden" style="height: 9vh;">
+                                            <div class="isi text-justify overflow-y-hidden" style="height: 10vh;">
                                                 <p>{{ $post->isi }}</p>
                                             </div>
                                             <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"

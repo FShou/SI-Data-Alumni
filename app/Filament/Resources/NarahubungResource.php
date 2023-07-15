@@ -3,21 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\NarahubungResource\Pages;
-use App\Filament\Resources\NarahubungResource\RelationManagers;
 use App\Models\Alumni;
 use App\Models\Angkatan;
 use App\Models\Narahubung;
-use Closure;
-use Filament\Forms;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class NarahubungResource extends Resource
 {

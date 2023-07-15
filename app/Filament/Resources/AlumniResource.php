@@ -3,30 +3,23 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AlumniResource\Pages;
-use App\Filament\Resources\AlumniResource\Pages\CreateAlumni;
 use App\Models\Alumni;
 use App\Models\Angkatan;
 use App\Models\Jurusan;
 use App\Models\Narahubung;
 use App\Models\Prodi;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Foundation\Auth\User;
 
 class AlumniResource extends Resource
@@ -49,9 +42,6 @@ class AlumniResource extends Resource
             FileUpload::make('foto')
                 ->required()
                 ->image()
-                // ->maxSize(2048)
-                // ->panelAspectRatio('3:1')
-                // ->imageResizeMode('cover')
                 ->imageCropAspectRatio('3:4'),
             ]),
             Card::make()->schema([
@@ -174,7 +164,6 @@ class AlumniResource extends Resource
             ->columns([
                 //
                 ImageColumn::make('foto')->circular(),
-                // ->grow(false),
 
                 TextColumn::make('nama_alumni')
                     ->label('Nama')
