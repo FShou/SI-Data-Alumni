@@ -242,11 +242,9 @@ class AlumniResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        if(!auth()->user()->hasRole('Admin'))
-        {
-            return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
-        }
-        return parent::getEloquentQuery()->latest();
+        return auth()->user()->hasRole('Admin') ?
+            parent::getEloquentQuery()->latest() :
+            parent::getEloquentQuery()->whereBelongsTo(auth()->user())->latest();
     }
 
     public static function getPages(): array

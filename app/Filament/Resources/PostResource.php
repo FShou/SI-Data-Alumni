@@ -6,6 +6,7 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -15,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 
 class PostResource extends Resource
@@ -46,13 +48,13 @@ class PostResource extends Resource
                         ->maxLength(255),
                     Select::make('kategori')
 
-                ->required()
-                ->searchable()
-                ->options([
-                    'Event' => 'Event',
-                    'Feedback' => 'Feedback',
-                    'Loker' => 'Loker'
-                ]),
+                        ->required()
+                        ->searchable()
+                        ->options([
+                            'Event' => 'Event',
+                            'Feedback' => 'Feedback',
+                            'Loker' => 'Loker',
+                        ]),
                     Forms\Components\Textarea::make('isi')
                         ->required()
                         ->rows(15)
@@ -64,7 +66,6 @@ class PostResource extends Resource
                     ),
                 ])
                 ->columns(1),
-
         ]);
     }
 
@@ -72,15 +73,19 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('judul_post'),
+                Tables\Columns\TextColumn::make('user.name')->searchable(
+                    auth()
+                        ->user()
+                        ->hasRole('Admin'),
+                ),
+                Tables\Columns\TextColumn::make('judul_post')->searchable(),
                 // Tables\Columns\TextColumn::make('foto_post'),
                 Tables\Columns\TextColumn::make('created_at')
-                ->label('Dibuat pada')
-                ->dateTime(),
+                    ->label('Dibuat pada')
+                    ->dateTime('d M Y,H:i'),
                 Tables\Columns\TextColumn::make('updated_at')
-                ->label('Terakhir diubah')
-                ->dateTime(),
+                    ->label('Terakhir diubah')
+                    ->dateTime('d M Y,H:i'),
                 ToggleColumn::make('approved')->visible(
                     auth()
                         ->user()
@@ -88,26 +93,38 @@ class PostResource extends Resource
                 ),
             ])
             ->filters([
-                //
+                Filter::make('created_at')
+                ->form([
+                    DatePicker::make('created_from')
+                        ->label('Dari Tanggal'),
+                    DatePicker::make('created_until')
+                        ->label('Sampai Tanggal')])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['created_from'],
+                            fn(Builder $query, $date): Builder =>
+                                $query->whereDate('created_at', '>=', $date)
+                        )
+                        ->when(
+                            $data['created_until'],
+                            fn(Builder $query, $date): Builder =>
+                                $query->whereDate('created_at', '<=', $date)
+                        );
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([]);
     }
 
     public static function getEloquentQuery(): Builder
     {
-        if (
-            !auth()
-                ->user()
-                ->hasRole('Admin')
-        ) {
-            return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
-        }
-        return parent::getEloquentQuery();
+        return auth()->user()->hasRole('Admin') ?
+            parent::getEloquentQuery()->latest() :
+            parent::getEloquentQuery()->whereBelongsTo(auth()->user());
     }
     public static function getPages(): array
     {

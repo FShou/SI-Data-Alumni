@@ -5,9 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\Pages\CreateUser;
 use App\Models\User;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
@@ -33,10 +33,10 @@ class UserResource extends Resource
         return $form->schema([
             Card::make()
                 ->schema([
-                    Forms\Components\TextInput::make('name')
+                    TextInput::make('name')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('email')
+                    TextInput::make('email')
                         ->email()
                         ->required()
                         ->maxLength(255),
@@ -49,7 +49,7 @@ class UserResource extends Resource
                         )
                         ->relationship('roles', 'name')
                         ->preload(),
-                    Forms\Components\TextInput::make('password')
+                    TextInput::make('password')
                         ->password()
                         ->dehydrateStateUsing(fn($state) => Hash::make($state))
                         ->dehydrated(fn($state) => filled($state))
@@ -64,13 +64,13 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                 ->label('Nama')
                 ->searchable(),
-                Tables\Columns\TextColumn::make('email')->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('email')->searchable(),
+                TextColumn::make('created_at')
                 ->label('Dibuat pada')
-                ->dateTime('d-m-Y'),
+                ->dateTime('d F Y'),
                 TextColumn::make('roles.name')
                 ->label('Role')
                 ->visible(
@@ -80,22 +80,19 @@ class UserResource extends Resource
                 ),
             ])
             ->filters([
-                //
             ])
-            ->actions([Tables\Actions\EditAction::make(), Tables\Actions\DeleteAction::make()])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+            ])
             ->bulkActions([]);
     }
 
     public static function getEloquentQuery(): Builder
     {
-        if (
-            !auth()
-                ->user()
-                ->hasRole('Admin')
-        ) {
-            return parent::getEloquentQuery()->where('id', 'like', auth()->id());
-        }
-        return parent::getEloquentQuery();
+        return auth()->user()->hasRole('Admin') ?
+            parent::getEloquentQuery()->latest() :
+            parent::getEloquentQuery()->where('id', 'like', auth()->id());
     }
 
     public static function getPages(): array
